@@ -12,16 +12,16 @@ import static org.junit.Assert.assertThat;
  */
 public class CalculateTest {
 	/**
-	* Test echo.
-	*/
+	 * Test echo.
+	 */
 	@Test
 	public void whenTakeNameThenThreeEchoPlusName() {
-		String input = "Dmitriy Shaplov";	
+		String input = "Dmitriy Shaplov";
 		String expect = "Echo, echo, echo : Dmitriy Shaplov";
-		//Создание нового объекта.
+//Создание нового объекта.
 		Calculate calc = new Calculate();
-		//Выполнение метода echo с параметром input и запись ее в переменную result.
-		String result = calc.echo(input); 
+//Выполнение метода echo с параметром input и запись ее в переменную result.
+		String result = calc.echo(input);
 		assertThat(result, is(expect));
 	}
 }
