@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
  * Test for converter.
  * @author shaplov
  * @version $Id$
- * @since 04.12.2018
+ * @since 05.12.2018
  */
 public class ConverterTest {
 

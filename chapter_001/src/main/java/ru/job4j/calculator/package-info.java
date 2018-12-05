@@ -1,5 +1,5 @@
 /**
- * Package for calculator task.
+ * Package for various calculations.
  *
  * @author Dmitriy Shaplov (dshaplov@gmail.com)
  * @version 1
