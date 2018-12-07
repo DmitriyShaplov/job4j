@@ -33,4 +33,14 @@ public class MaxTest {
         int result = maxim.max(10, 2);
         assertThat(result, is(10));
     }
+
+    /**
+     * Тест на максимальное из трех чисел
+     */
+    @Test
+    public void whenSecondGreaterOthers() {
+        Max maxim = new Max();
+        int result = maxim.max(4, 20, 2);
+        assertThat(result, is(20));
+    }
 }
