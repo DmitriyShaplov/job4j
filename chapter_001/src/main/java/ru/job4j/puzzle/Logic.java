@@ -64,10 +64,11 @@ public class Logic {
 
     public boolean isWin() {
         int[][] table = this.convert();
-        boolean resultRow = true;
-        boolean resultColumn = true;
+        boolean resultRow = false;
+        boolean resultColumn = false;
         for (int row = 0; row < table.length; row++) {
             if (table[row][0] == 1) {
+                resultRow = true;
                 for (int column = 1; column < table[row].length; column++) {
                     if (table[row][column - 1] != table[row][column]) {
                         resultRow = false;
@@ -78,6 +79,7 @@ public class Logic {
         }
         for (int column = 0; column < table[0].length; column++) {
             if (table[0][column] == 1) {
+                resultColumn = true;
                 for (int row = 1; row < table.length; row++) {
                     if (table[row - 1][column] != table[row][column]) {
                         resultColumn = false;
