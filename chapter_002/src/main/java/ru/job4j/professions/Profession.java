@@ -5,9 +5,9 @@ package ru.job4j.professions;
  * @since 20.12.2018
  */
 public abstract class Profession {
-    public String name;
+    private String name;
 
-    public String profession;
+    private String profession;
 
     public String getProfession() {
         return this.profession;
