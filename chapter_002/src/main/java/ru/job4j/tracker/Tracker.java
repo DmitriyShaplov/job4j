@@ -38,25 +38,28 @@ public class Tracker {
      * Метод заменяет заявку в массиве заявок по id.
      * @param id - id заявки
      * @param item новая заявка
+     * @return успешность замены
      */
-    public void replace(String id, Item item) {
+    public boolean replace(String id, Item item) {
         if (item == null) {
-            return;
+            return false;
         }
         for (int index = 0; index < this.position; index++) {
             if (this.items[index].getId().equals(id)) {
                 this.items[index] = item;
                 this.items[index].setId(id);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     /**
      * удаляет элемент из массива
      * @param id - id удаляемого элемента
+     * @return успешность удаления
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
         for (int index = 0; index < this.items.length; index++) {
             if (this.items[index].getId().equals(id)) {
                 if (index != items.length - 1) {
@@ -65,9 +68,10 @@ public class Tracker {
                     this.position--;
                 }
                 this.items[position] = null;
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     /**
