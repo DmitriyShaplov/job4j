@@ -60,7 +60,7 @@ public class Tracker {
      * @return успешность удаления
      */
     public boolean delete(String id) {
-        for (int index = 0; index < this.items.length; index++) {
+        for (int index = 0; index < position; index++) {
             if (this.items[index].getId().equals(id)) {
                 if (index != items.length - 1) {
                     System.arraycopy(this.items, index + 1, this.items, index, --this.position - index);
