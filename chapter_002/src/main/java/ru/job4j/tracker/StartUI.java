@@ -32,7 +32,7 @@ public class StartUI {
     /**
      * Main program loop
      */
-    private void init() {
+    public void init() {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
@@ -97,7 +97,7 @@ public class StartUI {
      * method deleting an item from the tracker
      */
     private void deleteItem() {
-        System.out.println("------------ Editing items ------------");
+        System.out.println("------------ Deleting items ------------");
         String id = this.input.ask("Enter the Id of deleting item : ");
         boolean result = this.tracker.delete(id);
         if (result) {
