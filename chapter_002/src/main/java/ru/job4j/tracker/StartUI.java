@@ -115,11 +115,11 @@ public class StartUI {
         String id = this.input.ask("Enter the Id of deleting item : ");
         Item item = this.tracker.findById(id);
         if (item != null) {
-            System.out.printf("Id: %s\nName: %s Description: %s\n", item.getId(), item.getName(), item.getDesc());
-            System.out.println("------------------------------------------------------");
+            System.out.printf("Id: %s Name: %s Description: %s\n", item.getId(), item.getName(), item.getDesc());
+            System.out.println("-----------------------------------------------------");
         } else {
             System.out.println("There is no item with this Id");
-            System.out.println("------------------------------------------------------");
+            System.out.println("-----------------------------------------------------");
         }
     }
 
@@ -133,13 +133,13 @@ public class StartUI {
     private void printItems(Item[] items) {
         if (items.length > 0) {
             System.out.println("Here are all of the required items :");
-            System.out.println("№\tId\tName\tDescription");
+            System.out.printf("%s  %-13s %-15s %s\r\n", "№", "Id", "Name", "Description");
             System.out.println("-----------------------------------------------------");
             for (int index = 0; index < items.length; index++) {
-                System.out.printf("%d %-5s %-11s %-23s\n", index, items[index].getId(),
+                System.out.printf("%-3d %s %-15s %s\r\n", index + 1, items[index].getId(),
                         items[index].getName(), items[index].getDesc());
             }
-            System.out.println("------------------------------------------------------");
+            System.out.println("-----------------------------------------------------");
         } else {
             System.out.println("------------ There are no items with these properties tracker ------------");
         }
