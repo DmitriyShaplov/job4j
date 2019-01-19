@@ -22,7 +22,7 @@ public class StubInput implements Input {
         return this.value[this.position++];
     }
 
-    public String ask(String question, List<Integer> range) {
-        return this.value[this.position++];
+    public int ask(String question, List<Integer> range) {
+        return Integer.valueOf(this.value[this.position++]);
     }
 }

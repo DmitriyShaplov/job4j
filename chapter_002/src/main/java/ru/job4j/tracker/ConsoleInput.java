@@ -12,15 +12,19 @@ public class ConsoleInput implements Input {
         return scanner.nextLine();
     }
 
-    public String ask(String question, List<Integer> range) {
-        while (true) {
-            System.out.print(question);
-            String result = scanner.nextLine();
-            for (Integer number : range) {
-                if (number.equals(Integer.valueOf(result))) {
-                    return result;
-                }
-            }
-        }
+    public int ask(String question, List<Integer> range) {
+         int key = Integer.valueOf(ask(question));
+         boolean exists = false;
+         for (int num : range) {
+             if (key == num) {
+                 exists = true;
+                 break;
+             }
+         }
+         if (exists) {
+             return key;
+         } else {
+             throw new MenuOutException("Out of menu range.");
+         }
     }
 }

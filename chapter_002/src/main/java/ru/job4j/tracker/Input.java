@@ -6,5 +6,5 @@ public interface Input {
 
     String ask(String question);
 
-    String ask(String question, List<Integer> range);
+    int ask(String question, List<Integer> range);
 }

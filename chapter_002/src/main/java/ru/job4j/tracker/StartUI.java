@@ -37,7 +37,7 @@ public class StartUI {
         }
         do {
             menu.show();
-        } while (menu.select(Integer.valueOf(input.ask("Please, enter menu item number : ", range))));
+        } while (menu.select(input.ask("Please, enter menu item number : ", range)));
     }
 
     /**
@@ -45,6 +45,6 @@ public class StartUI {
      * @param args cmd args.
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }
