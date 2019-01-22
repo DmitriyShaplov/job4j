@@ -89,19 +89,13 @@ public class MenuTracker {
     /**
      * inner class for adding item
      */
-    private class AddItem implements UserAction {
-        private int key;
-        private String info;
-
-        public int key() {
-            return key;
-        }
+    private class AddItem extends BaseAction {
 
         public AddItem(int key, String info) {
-            this.key = key;
-            this.info = info;
+            super(key, info);
         }
 
+        @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Adding a new item ------------");
             String name = input.ask("Enter item name : ");
@@ -110,26 +104,15 @@ public class MenuTracker {
             tracker.add(item);
             System.out.println("------------ New item with Id : " + item.getId() + " ------------");
         }
-
-        public String info() {
-            return String.format("%d. %s", this.key, this.info);
-        }
     }
 
     /**
      * inner class for showing items
      */
-    private class ShowItems implements UserAction {
-        private int key;
-        private String info;
-
-        public int key() {
-            return key;
-        }
+    private class ShowItems extends BaseAction {
 
         public ShowItems(int key, String info) {
-            this.key = key;
-            this.info = info;
+            super(key, info);
         }
 
         public void execute(Input input, Tracker tracker) {
@@ -137,26 +120,15 @@ public class MenuTracker {
             Item[] items = tracker.findAll();
             printItems(items);
         }
-
-        public String info() {
-            return String.format("%d. %s", this.key, this.info);
-        }
     }
 
     /**
      * inner class for edit items
      */
-    private class EditItem implements UserAction {
-        private int key;
-        private String info;
-
-        public int key() {
-            return key;
-        }
+    private class EditItem extends BaseAction {
 
         public EditItem(int key, String info) {
-            this.key = key;
-            this.info = info;
+            super(key, info);
         }
 
         public void execute(Input input, Tracker tracker) {
@@ -172,26 +144,15 @@ public class MenuTracker {
                 System.out.println("------------ There is no item with this Id ------------");
             }
         }
-
-        public String info() {
-            return String.format("%d. %s", this.key, this.info);
-        }
     }
 
     /**
      * inner class for deleting items
      */
-    private class DeleteItem implements UserAction {
-        private int key;
-        private String info;
-
-        public int key() {
-            return key;
-        }
+    private class DeleteItem extends BaseAction {
 
         public DeleteItem(int key, String info) {
-            this.key = key;
-            this.info = info;
+            super(key, info);
         }
 
         public void execute(Input input, Tracker tracker) {
@@ -204,26 +165,15 @@ public class MenuTracker {
                 System.out.println("------------ There is no item with this Id ------------");
             }
         }
-
-        public String info() {
-            return String.format("%d. %s", this.key, this.info);
-        }
     }
 
     /**
      * inner class for find item by Id
      */
-    private class FindItemById implements UserAction {
-        private int key;
-        private String info;
-
-        public int key() {
-            return key;
-        }
+    private class FindItemById extends BaseAction {
 
         public FindItemById(int key, String info) {
-            this.key = key;
-            this.info = info;
+            super(key, info);
         }
 
         public void execute(Input input, Tracker tracker) {
@@ -238,26 +188,15 @@ public class MenuTracker {
                 System.out.println("-----------------------------------------------------");
             }
         }
-
-        public String info() {
-            return String.format("%d. %s", this.key, this.info);
-        }
     }
 
     /**
      * inner class for find item by Id
      */
-    private class FindItemsByName implements UserAction {
-        private int key;
-        private String info;
-
-        public int key() {
-            return key;
-        }
+    private class FindItemsByName extends BaseAction {
 
         public FindItemsByName(int key, String info) {
-            this.key = key;
-            this.info = info;
+            super(key, info);
         }
 
         public void execute(Input input, Tracker tracker) {
@@ -266,34 +205,18 @@ public class MenuTracker {
             Item[] items = tracker.findByName(name);
             printItems(items);
         }
-
-        public String info() {
-            return String.format("%d. %s", this.key, this.info);
-        }
     }
 
     /**
      * inner class for exit
      */
-    private class Exit implements UserAction {
-        private int key;
-        private String info;
-
-        public int key() {
-            return key;
-        }
-
+    private class Exit extends BaseAction {
         public Exit(int key, String info) {
-            this.key = key;
-            this.info = info;
+            super(key, info);
         }
 
         public void execute(Input input, Tracker tracker) {
             exit = true;
-        }
-
-        public String info() {
-            return String.format("%d. %s", this.key, this.info);
         }
     }
 }
