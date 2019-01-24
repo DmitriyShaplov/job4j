@@ -115,6 +115,7 @@ public class MenuTracker {
             super(key, info);
         }
 
+        @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Showing all of the items ------------");
             Item[] items = tracker.findAll();
@@ -131,6 +132,7 @@ public class MenuTracker {
             super(key, info);
         }
 
+        @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Editing an item ------------");
             String id = input.ask("Enter the Id of the required item : ");
@@ -155,6 +157,7 @@ public class MenuTracker {
             super(key, info);
         }
 
+        @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Deleting items ------------");
             String id = input.ask("Enter the Id of deleting item : ");
@@ -176,6 +179,7 @@ public class MenuTracker {
             super(key, info);
         }
 
+        @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Finding an item by Id ------------");
             String id = input.ask("Enter the Id of deleting item : ");
@@ -199,6 +203,7 @@ public class MenuTracker {
             super(key, info);
         }
 
+        @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Finding items by name ------------");
             String name = input.ask("Enter the name of required items : ");
@@ -215,6 +220,7 @@ public class MenuTracker {
             super(key, info);
         }
 
+        @Override
         public void execute(Input input, Tracker tracker) {
             exit = true;
         }
