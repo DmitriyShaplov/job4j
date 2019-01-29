@@ -9,25 +9,19 @@ import ru.job4j.chess.firuges.Figure;
  * @version $Id$
  * @since 0.1
  */
-public class QeenBlack implements Figure {
-    private final Cell position;
+public class QueenBlack extends Figure {
 
-    public QeenBlack(final Cell position) {
-        this.position = position;
-    }
-
-    @Override
-    public Cell position() {
-        return this.position;
+    public QueenBlack(final Cell position) {
+        super(position);
     }
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] { dest };
+        return new Cell[] {dest};
     }
 
     @Override
     public Figure copy(Cell dest) {
-        return new QeenBlack(dest);
+        return new QueenBlack(dest);
     }
 }

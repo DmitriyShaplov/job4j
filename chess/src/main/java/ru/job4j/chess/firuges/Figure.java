@@ -1,17 +1,27 @@
 package ru.job4j.chess.firuges;
 
-public interface Figure {
-    Cell position();
+import ru.job4j.chess.ImpossibleMoveException;
 
-    Cell[] way(Cell source, Cell dest);
+public abstract class Figure {
 
-    default String icon() {
+    private final Cell position;
+
+    public Figure(final Cell position) {
+        this.position = position;
+    }
+
+    public abstract Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException;
+
+    public String icon() {
         return String.format(
                 "%s.png", this.getClass().getSimpleName()
         );
 
     }
 
-    Figure copy(Cell dest);
+    public Cell position() {
+        return this.position;
+    }
 
+    public abstract Figure copy(Cell dest);
 }
