@@ -1,21 +1,21 @@
-package ru.job4j.decoratorPattern;
+package ru.job4j.decoratorpattern;
 
 import java.util.ArrayList;
 
-public class Monitor extends ComponentDecorator {
-    public Monitor(Component component) {
+public class Mouse extends ComponentDecorator {
+    public Mouse(Component component) {
         super(component);
     }
 
     @Override
     public ArrayList<String> getDescription() {
         ArrayList<String> arrayList = wrapped.getDescription();
-        arrayList.add("AOC G2460 144Hz");
+        arrayList.add("Zowie FK2");
         return arrayList;
     }
 
     @Override
     public double getCost() {
-        return wrapped.getCost() + 15000;
+        return wrapped.getCost() + 4650;
     }
 }

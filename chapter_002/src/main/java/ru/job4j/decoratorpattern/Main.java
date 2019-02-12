@@ -1,4 +1,4 @@
-package ru.job4j.decoratorPattern;
+package ru.job4j.decoratorpattern;
 
 public class Main {
     public static void main(String[] args) {
