@@ -14,26 +14,28 @@ public class CoffeeMachine {
                 break;
             }
         }
+        int [] result;
         if (!isBanknote) {
-            return new int[0];
-        }
-        int coinsAmoung = 0;
-        int[] coins = new int[4];
-        int remainder = value - price;
-        for (int i = 0; i < 4; i++) {
-            if (remainder == 0) {
-                break;
+            result = new int[0];
+        } else {
+            int coinsAmoung = 0;
+            int[] coins = new int[4];
+            int remainder = value - price;
+            for (int i = 0; i < 4; i++) {
+                if (remainder == 0) {
+                    break;
+                }
+                coinsAmoung += remainder / CHANGE[i];
+                coins[i] = remainder / CHANGE[i];
+                remainder = remainder % CHANGE[i];
             }
-            coinsAmoung += remainder / CHANGE[i];
-            coins[i] = remainder / CHANGE[i];
-            remainder = remainder % CHANGE[i];
-        }
-        int[] result = new int[coinsAmoung];
-        int num = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int coin = 0; coin < coins[i]; coin++) {
-                result[num] = CHANGE[i];
-                num++;
+            result = new int[coinsAmoung];
+            int num = 0;
+            for (int i = 0; i < 4; i++) {
+                for (int coin = 0; coin < coins[i]; coin++) {
+                    result[num] = CHANGE[i];
+                    num++;
+                }
             }
         }
         return result;
