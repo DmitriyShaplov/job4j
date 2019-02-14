@@ -13,10 +13,14 @@ public class ConsoleInput implements Input {
     private List<Validate> validates = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
 
+    {
+        fillValidates();
+    }
+
     private void fillValidates() {
         this.validates.add(new Validate() {
             public void validate(int key, List<Integer> range) {
-                if (ConsoleInput.this.isInRange(key, range)) {
+                if (!ConsoleInput.this.isInRange(key, range)) {
                     throw new MenuOutException("Out of menu range.");
                 }
             }
