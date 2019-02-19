@@ -1,15 +1,37 @@
 package ru.job4j.search;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * Class for converting List of Integers to Array
+ * Class for converting List of Integers
  * @author shaplov
  * @version $Id$
  * @since 0.1
  */
 public class ConvertList2Array {
+    /**
+     * Combines a list of arrays into one linear list.
+     * @param list incoming list of int arrays
+     * @return resulting list of Integers
+     */
+    public List<Integer> convert(List<int[]> list) {
+        List<Integer> result = new ArrayList<>();
+        for (int[] arr : list) {
+            for (int number : arr) {
+                result.add(number);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Convert List of Integers to 2D Array
+     * @param list List of Integers
+     * @param rows number of rows in Array
+     * @return 2D Array
+     */
     public int[][] toArray(List<Integer> list, int rows) {
         int cells = (int) (Math.ceil((double) list.size() / rows));
         int[][] array = new int[rows][cells];
