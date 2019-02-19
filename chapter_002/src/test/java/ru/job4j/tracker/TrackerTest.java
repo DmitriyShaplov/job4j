@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
@@ -41,7 +42,7 @@ public class TrackerTest {
         tracker.add(item);
         item = new Item("test3", "testDesc3");
         tracker.add(item);
-        ArrayList<Item> result = tracker.findAll();
+        List<Item> result = tracker.findAll();
         String resultName = result.get(2).getName();
         int expectLength = 3;
         String expectName = "test3";
@@ -61,7 +62,7 @@ public class TrackerTest {
         tracker.add(item);
         item = new Item("test3", "testDesc3");
         tracker.add(item);
-        ArrayList<Item> result = tracker.findByName("test1");
+        List<Item> result = tracker.findByName("test1");
         int expectLength = 2;
         assertThat(result.size(), is(expectLength));
     }
@@ -97,11 +98,11 @@ public class TrackerTest {
         String deletingId = item.getId();
         item = new Item("test3", "testDesc3");
         tracker.add(item);
-        ArrayList<Item> oldItems = tracker.findAll();
+        List<Item> oldItems = tracker.findAll();
         int oldLength = oldItems.size();
         String oldName = oldItems.get(oldItems.size() - 1).getName();
         tracker.delete(deletingId);
-        ArrayList<Item> newItems = tracker.findAll();
+        List<Item> newItems = tracker.findAll();
         int newLength = newItems.size();
         String newName = newItems.get(newItems.size() - 1).getName();
         Item findResult = tracker.findById(deletingId);
@@ -123,11 +124,11 @@ public class TrackerTest {
         item = new Item("test3", "testDesc3");
         tracker.add(item);
         String deletingId = item.getId();
-        ArrayList<Item> oldItems = tracker.findAll();
+        List<Item> oldItems = tracker.findAll();
         int oldLength = oldItems.size();
         String oldName = oldItems.get(oldItems.size() - 2).getName();
         tracker.delete(deletingId);
-        ArrayList<Item> newItems = tracker.findAll();
+        List<Item> newItems = tracker.findAll();
         int newLength = newItems.size();
         String newName = newItems.get(newItems.size() - 1).getName();
         Item findResult = tracker.findById(deletingId);

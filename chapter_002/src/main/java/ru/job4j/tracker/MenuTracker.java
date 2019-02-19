@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author shaplov
@@ -71,7 +72,7 @@ public class MenuTracker {
      * common method for print resulting info
      * @param items array type Item
      */
-    private static void printItems(ArrayList<Item> items) {
+    private static void printItems(List<Item> items) {
         if (items.size() > 0) {
             System.out.println("Here are all of the required items :");
             System.out.printf("%s  %-13s %-15s %s%n", "№", "Id", "Name", "Description");
@@ -118,7 +119,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Showing all of the items ------------");
-            ArrayList<Item> items = tracker.findAll();
+            List<Item> items = tracker.findAll();
             printItems(items);
         }
     }
@@ -207,7 +208,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Finding items by name ------------");
             String name = input.ask("Enter the name of required items : ");
-            ArrayList<Item> items = tracker.findByName(name);
+            List<Item> items = tracker.findByName(name);
             printItems(items);
         }
     }
