@@ -1,6 +1,9 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -38,11 +41,11 @@ public class TrackerTest {
         tracker.add(item);
         item = new Item("test3", "testDesc3");
         tracker.add(item);
-        Item[] result = tracker.findAll();
-        String resultName = result[2].getName();
+        ArrayList<Item> result = tracker.findAll();
+        String resultName = result.get(2).getName();
         int expectLength = 3;
         String expectName = "test3";
-        assertThat(result.length, is(expectLength));
+        assertThat(result.size(), is(expectLength));
         assertThat(resultName, is(expectName));
     }
 
@@ -58,9 +61,9 @@ public class TrackerTest {
         tracker.add(item);
         item = new Item("test3", "testDesc3");
         tracker.add(item);
-        Item[] result = tracker.findByName("test1");
+        ArrayList<Item> result = tracker.findByName("test1");
         int expectLength = 2;
-        assertThat(result.length, is(expectLength));
+        assertThat(result.size(), is(expectLength));
     }
 
     /**
@@ -94,13 +97,13 @@ public class TrackerTest {
         String deletingId = item.getId();
         item = new Item("test3", "testDesc3");
         tracker.add(item);
-        Item[] oldItems = tracker.findAll();
-        int oldLength = oldItems.length;
-        String oldName = oldItems[oldItems.length - 1].getName();
+        ArrayList<Item> oldItems = tracker.findAll();
+        int oldLength = oldItems.size();
+        String oldName = oldItems.get(oldItems.size() - 1).getName();
         tracker.delete(deletingId);
-        Item[] newItems = tracker.findAll();
-        int newLength = newItems.length;
-        String newName = newItems[newItems.length - 1].getName();
+        ArrayList<Item> newItems = tracker.findAll();
+        int newLength = newItems.size();
+        String newName = newItems.get(newItems.size() - 1).getName();
         Item findResult = tracker.findById(deletingId);
         assertNull(findResult);
         assertThat(newLength, is(oldLength - 1));
@@ -120,13 +123,13 @@ public class TrackerTest {
         item = new Item("test3", "testDesc3");
         tracker.add(item);
         String deletingId = item.getId();
-        Item[] oldItems = tracker.findAll();
-        int oldLength = oldItems.length;
-        String oldName = oldItems[oldItems.length - 2].getName();
+        ArrayList<Item> oldItems = tracker.findAll();
+        int oldLength = oldItems.size();
+        String oldName = oldItems.get(oldItems.size() - 2).getName();
         tracker.delete(deletingId);
-        Item[] newItems = tracker.findAll();
-        int newLength = newItems.length;
-        String newName = newItems[newItems.length - 1].getName();
+        ArrayList<Item> newItems = tracker.findAll();
+        int newLength = newItems.size();
+        String newName = newItems.get(newItems.size() - 1).getName();
         Item findResult = tracker.findById(deletingId);
         assertNull(findResult);
         assertThat(newLength, is(oldLength - 1));

@@ -71,14 +71,14 @@ public class MenuTracker {
      * common method for print resulting info
      * @param items array type Item
      */
-    private static void printItems(Item[] items) {
-        if (items.length > 0) {
+    private static void printItems(ArrayList<Item> items) {
+        if (items.size() > 0) {
             System.out.println("Here are all of the required items :");
             System.out.printf("%s  %-13s %-15s %s%n", "№", "Id", "Name", "Description");
             System.out.println("-----------------------------------------------------");
-            for (int index = 0; index < items.length; index++) {
-                System.out.printf("%-3d %s %-15s %s%n", index + 1, items[index].getId(),
-                        items[index].getName(), items[index].getDesc());
+            for (int index = 0; index < items.size(); index++) {
+                System.out.printf("%-3d %s %-15s %s%n", index + 1, items.get(index).getId(),
+                        items.get(index).getName(), items.get(index).getDesc());
             }
             System.out.println("-----------------------------------------------------");
         } else {
@@ -118,7 +118,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Showing all of the items ------------");
-            Item[] items = tracker.findAll();
+            ArrayList<Item> items = tracker.findAll();
             printItems(items);
         }
     }
@@ -207,7 +207,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Finding items by name ------------");
             String name = input.ask("Enter the name of required items : ");
-            Item[] items = tracker.findByName(name);
+            ArrayList<Item> items = tracker.findByName(name);
             printItems(items);
         }
     }
