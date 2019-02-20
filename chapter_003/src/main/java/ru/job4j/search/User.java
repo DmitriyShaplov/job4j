@@ -36,6 +36,10 @@ public class User implements Comparable<User> {
         return city;
     }
 
+    public int getAge() {
+        return age;
+    }
+
     @Override
     public int compareTo(User o) {
         return Integer.compare(this.age, o.age);
