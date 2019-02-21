@@ -16,7 +16,9 @@ public class Bank {
      * @param user User
      */
     public void addUser(User user) {
-        this.userListMap.putIfAbsent(user, new ArrayList<>());
+        if (user != null) {
+            this.userListMap.putIfAbsent(user, new ArrayList<>());
+        }
     }
 
     /**
@@ -38,7 +40,9 @@ public class Bank {
         }
         for (User user : this.userListMap.keySet()) {
             if (user.getPassport().equals(passport)) {
-                this.userListMap.get(user).add(account);
+                if (!this.userListMap.get(user).contains(account)) {
+                    this.userListMap.get(user).add(account);
+                }
                 break;
             }
         }
@@ -78,11 +82,6 @@ public class Bank {
             }
         }
         return accountList;
-    }
-
-    private Account getActualAccount(User user, Account account) {
-        List<Account> list = this.userListMap.get(user);
-        return list.get(list.indexOf(account));
     }
 
     /**
