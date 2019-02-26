@@ -1,5 +1,6 @@
 package ru.job4j.tasks;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -20,15 +21,15 @@ public class SortDepartments {
         list.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                final int minLen = o1.length() < o2.length() ? o1.length() : o2.length();
-                int rs1 = 0;
-                for (int index = 0; index < minLen; index++) {
-                    if (o1.charAt(index) != o2.charAt(index)) {
-                        rs1 = Character.compare(o2.charAt(index), o1.charAt(index));
-                        break;
-                    }
+                int rs1 = Integer.compare(o1.length(), o2.length());
+                if (o1.length() < o2.length()) {
+                    o2 = o2.substring(0, o1.length());
                 }
-                return rs1 != 0 ? rs1 : Integer.compare(o1.length(), o2.length());
+                if (o1.length() > o2.length()) {
+                    o1 = o1.substring(0, o2.length() - 1);
+                }
+                int rs2 = o2.compareTo(o1);
+                return rs2 != 0 ? rs2 : rs1;
             }
         });
         return list;
