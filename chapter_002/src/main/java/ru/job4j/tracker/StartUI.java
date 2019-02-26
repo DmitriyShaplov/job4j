@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @version $Id$
@@ -9,27 +10,21 @@ import java.util.List;
  */
 public class StartUI {
 
-    static final String ADD = "0";
-    static final String SHOW_ALL = "1";
-    static final String EDIT = "2";
-    static final String DELETE = "3";
-    static final String FIND_BY_ID = "4";
-    static final String FIND_BY_NAME = "5";
-    static final String EXIT = "6";
-
     private final Input input;
     private final Tracker tracker;
+    private final Consumer<String> output;
 
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
 
     /**
      * Main program loop
      */
     public void init() {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        MenuTracker menu = new MenuTracker(this.input, this.tracker, output);
         List<Integer> range = new ArrayList<>();
         menu.fillActions();
         for (int i = 0; i < menu.getActionsLength(); i++) {
@@ -46,7 +41,7 @@ public class StartUI {
      */
     public static void main(String[] args) {
         new StartUI(
-                new ValidateInput(new ConsoleInput()), new Tracker()
+                new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println
         ).init();
     }
 }
