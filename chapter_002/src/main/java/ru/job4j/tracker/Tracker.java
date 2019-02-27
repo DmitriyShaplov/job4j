@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Обертка над массивом заявок.
@@ -82,13 +83,9 @@ public class Tracker {
      * @return arrayList с нужными нам заявками
      */
     public List<Item> findByName(String key) {
-        List<Item> list = new ArrayList<>();
-        for (Item item : this.items) {
-            if (item != null && item.getName().equals(key)) {
-                list.add(item);
-            }
-        }
-        return list;
+        return this.items.stream()
+                .filter(item -> item.getName().equals(key))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -96,13 +93,8 @@ public class Tracker {
      * @return Item
      */
     public Item findById(String id) {
-        Item result = null;
-        for (Item item : this.items) {
-            if (item != null && item.getId().equals(id)) {
-                result = item;
-                break;
-            }
-        }
-        return result;
+        return this.items.stream()
+                .filter(item -> item.getId().equals(id))
+                .findAny().orElse(null);
     }
 }
