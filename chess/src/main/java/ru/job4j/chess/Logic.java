@@ -5,6 +5,7 @@ import ru.job4j.chess.firuges.Figure;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 /**
  * //TODO add comments.
@@ -61,16 +62,9 @@ public class Logic {
     }
 
     private int findBy(Cell cell) throws FigureNotFoundException {
-//        Figure figure = Arrays.stream(figures).filter(
-//                f -> f.position().equals(cell)
-//        ).findAny().orElse(null);
-        int rst = -1;
-        for (int index = 0; index != this.figures.length; index++) {
-            if (this.figures[index] != null && this.figures[index].position().equals(cell)) {
-                rst = index;
-                break;
-            }
-        }
+        int rst = IntStream.range(0, this.figures.length)
+                .filter(i -> this.figures[i] != null && figures[i].position().equals(cell))
+                .findAny().orElse(-1);
         if (rst == -1) {
             throw new FigureNotFoundException("There is no figure");
         }

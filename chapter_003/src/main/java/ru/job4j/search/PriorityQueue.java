@@ -15,7 +15,7 @@ public class PriorityQueue {
     public void put(Task task) {
         int index = (int) this.tasks.stream()
                 .filter(
-                        t -> t.getPriority() > task.getPriority()
+                        t -> t.getPriority() < task.getPriority()
                 ).count();
         this.tasks.add(index, task);
     }
