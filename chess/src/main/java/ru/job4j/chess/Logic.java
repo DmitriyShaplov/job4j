@@ -3,6 +3,9 @@ package ru.job4j.chess;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * //TODO add comments.
  *
@@ -45,17 +48,22 @@ public class Logic {
     }
 
     private boolean checkWay(Cell[] steps) throws OccupiedWayException {
-        for (Cell cell : steps) {
-            for (int index = 0; index != this.figures.length; index++) {
-                if (this.figures[index] != null && this.figures[index].position().equals(cell)) {
-                    throw new OccupiedWayException("There is another figure on the way");
-                }
-            }
+        boolean res = Arrays.stream(this.figures).filter(Objects::nonNull)
+                .anyMatch(
+                f -> Arrays.stream(steps).anyMatch(
+                            cell -> f.position().equals(cell)
+                    )
+        );
+        if (res) {
+            throw new OccupiedWayException("There is another figure on the way");
         }
         return true;
     }
 
     private int findBy(Cell cell) throws FigureNotFoundException {
+//        Figure figure = Arrays.stream(figures).filter(
+//                f -> f.position().equals(cell)
+//        ).findAny().orElse(null);
         int rst = -1;
         for (int index = 0; index != this.figures.length; index++) {
             if (this.figures[index] != null && this.figures[index].position().equals(cell)) {
