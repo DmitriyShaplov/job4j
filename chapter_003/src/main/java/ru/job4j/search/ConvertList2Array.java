@@ -1,8 +1,10 @@
 package ru.job4j.search;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class for converting List of Integers
@@ -17,13 +19,17 @@ public class ConvertList2Array {
      * @return resulting list of Integers
      */
     public List<Integer> convert(List<int[]> list) {
-        List<Integer> result = new ArrayList<>();
-        for (int[] arr : list) {
-            for (int number : arr) {
-                result.add(number);
-            }
-        }
-        return result;
+        List<Integer> result = list.stream()
+                .flatMapToInt(Arrays::stream).boxed()
+                .collect(Collectors.toList());
+
+//        List<Integer> result = new ArrayList<>();
+//        for (int[] arr : list) {
+//            for (int number : arr) {
+//                result.add(number);
+//            }
+//        }
+//        return result;
     }
 
     /**
