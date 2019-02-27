@@ -2,6 +2,9 @@ package ru.job4j.search;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Class for Users operations.
@@ -17,10 +20,6 @@ public class UserConvert {
      * @return HashMap key-id, value-User
      */
     public HashMap<Integer, User> process(List<User> list) {
-        HashMap<Integer, User> result = new HashMap<>();
-        for (User user : list) {
-            result.put(user.getId(), user);
-        }
-        return result;
+        return new HashMap<>(list.stream().collect(Collectors.toMap(User::getId, Function.identity())));
     }
 }

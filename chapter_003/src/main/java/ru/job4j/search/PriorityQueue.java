@@ -20,6 +20,10 @@ public class PriorityQueue {
         }
     }
 
+    /**
+     * Retrieves and removes the head of this list.
+     * @return head task
+     */
     public Task take() {
         return this.tasks.poll();
     }
