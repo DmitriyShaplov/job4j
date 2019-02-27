@@ -1,6 +1,7 @@
 package ru.job4j.bank;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * The class represents a bank of users with accounts
@@ -38,14 +39,19 @@ public class Bank {
         if (account == null || passport == null) {
             return;
         }
-        for (User user : this.userListMap.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                if (!this.userListMap.get(user).contains(account)) {
-                    this.userListMap.get(user).add(account);
-                }
-                break;
-            }
-        }
+        this.userListMap.entrySet().stream()
+                .filter(userListEntry -> userListEntry.getKey().getPassport().equals(passport))
+                .filter(userListEntry -> !userListEntry.getValue().contains(account))
+                .limit(1)
+                .forEach(userListEntry -> userListEntry.getValue().add(account));
+//        for (User user : this.userListMap.keySet()) {
+//            if (user.getPassport().equals(passport)) {
+//                if (!this.userListMap.get(user).contains(account)) {
+//                    this.userListMap.get(user).add(account);
+//                }
+//                break;
+//            }
+//        }
     }
 
     /**
@@ -57,12 +63,24 @@ public class Bank {
         if (account == null || passport == null) {
             return;
         }
-        for (User user : this.userListMap.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                this.userListMap.get(user).remove(account);
-                break;
-            }
-        }
+        this.userListMap.entrySet().stream()
+                .filter(userListEntry -> userListEntry.getKey().getPassport().equals(passport))
+                .map(Map.Entry::getValue)
+                .limit(1)
+                .forEach(
+                        list -> {
+                            list.removeIf(
+                                    acc -> acc.equals(account)
+                            );
+                        }
+                );
+
+//        for (User user : this.userListMap.keySet()) {
+//            if (user.getPassport().equals(passport)) {
+//                this.userListMap.get(user).remove(account);
+//                break;
+//            }
+//        }
     }
 
     /**
@@ -74,14 +92,24 @@ public class Bank {
         if (passport == null) {
             return new ArrayList<>();
         }
-        List<Account> accountList = new ArrayList<>();
-        for (User user : this.userListMap.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                accountList = this.userListMap.get(user);
-                break;
-            }
-        }
-        return accountList;
+//        return this.userListMap.entrySet().stream()
+//                .filter(
+//                        userListEntry -> userListEntry.getKey().getPassport().equals(passport)
+//                ).flatMap(
+//                        userListEntry -> userListEntry.getValue().stream()
+//                ).collect(Collectors.toList());
+        return this.userListMap.entrySet().stream()
+                .filter(
+                        userListEntry -> userListEntry.getKey().getPassport().equals(passport)
+                ).map(Map.Entry::getValue).findAny().orElse(new ArrayList<>());
+//        List<Account> accountList = new ArrayList<>();
+//        for (User user : this.userListMap.keySet()) {
+//            if (user.getPassport().equals(passport)) {
+//                accountList = this.userListMap.get(user);
+//                break;
+//            }
+//        }
+//        return accountList;
     }
 
     /**
@@ -114,13 +142,16 @@ public class Bank {
      * @return User or null
      */
     public User getUser(String passport) {
-        User result = null;
-        for (User user : this.userListMap.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                result = user;
-            }
-        }
-        return result;
+        return this.userListMap.keySet().stream()
+                .filter(user -> user.getPassport().equals(passport))
+                .findAny().orElse(null);
+//        User result = null;
+//        for (User user : this.userListMap.keySet()) {
+//            if (user.getPassport().equals(passport)) {
+//                result = user;
+//            }
+//        }
+//        return result;
     }
 
     /**
@@ -130,12 +161,18 @@ public class Bank {
      * @return Account or null
      */
     private Account getAccount(User user, String requisite) {
-        Account result = null;
-        for (Account account : this.userListMap.get(user)) {
-            if (account.getRequisites().equals(requisite)) {
-                result = account;
-            }
+        List<Account> list = this.userListMap.get(user);
+        if (list != null) {
+            return list.stream().filter(account -> account.getRequisites().equals(requisite))
+                    .findAny().orElse(null);
         }
-        return result;
+        return null;
+//        Account result = null;
+//        for (Account account : this.userListMap.get(user)) {
+//            if (account.getRequisites().equals(requisite)) {
+//                result = account;
+//            }
+//        }
+//        return result;
     }
 }
