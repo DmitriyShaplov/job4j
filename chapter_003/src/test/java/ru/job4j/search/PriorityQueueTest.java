@@ -17,7 +17,7 @@ public class PriorityQueueTest {
     }
 
     @Test
-    public void whenHighterPriorityLast() {
+    public void whenHigherPriorityLast() {
         PriorityQueue queue = new PriorityQueue();
         queue.put(new Task("low", 5));
         queue.put(new Task("middle", 3));
