@@ -17,9 +17,8 @@ import static org.junit.Assert.assertThat;
 public class UserConvertTest {
     @Test
     public void whenConvertThenHashMap() {
-        List<User> users = new ArrayList<>();
         User user = new User(100, "Dmitriy", "Odincovo");
-        users.add(user);
+        List<User> users = List.of(user);
         UserConvert converter = new UserConvert();
         HashMap<Integer, User> result = converter.process(users);
         assertThat(result.get(100), is(user));
