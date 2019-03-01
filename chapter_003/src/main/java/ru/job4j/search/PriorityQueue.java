@@ -1,8 +1,6 @@
 package ru.job4j.search;
 
 import java.util.LinkedList;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PriorityQueue {
     private LinkedList<Task> tasks = new LinkedList<>();
@@ -13,7 +11,7 @@ public class PriorityQueue {
      * @param task task
      */
     public void put(Task task) {
-        int index = (int) this.tasks.stream()
+        var index = (int) this.tasks.stream()
                 .filter(
                         t -> t.getPriority() < task.getPriority()
                 ).count();
