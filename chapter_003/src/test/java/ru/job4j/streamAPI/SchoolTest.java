@@ -10,14 +10,14 @@ import static org.junit.Assert.assertThat;
 
 public class SchoolTest {
 
-    private List<Student> students = List.of(
-            new Student(10),
-            new Student(70),
-            new Student(69),
-            new Student(35),
-            new Student(99),
-            new Student(48),
-            new Student(54)
+    private final List<Student> students = List.of(
+            new Student("test0", 10),
+            new Student("test1", 70),
+            new Student("test2", 69),
+            new Student("test3", 35),
+            new Student("test4", 99),
+            new Student("test5", 48),
+            new Student("test6", 54)
     );
 
     @Test
@@ -64,5 +64,12 @@ public class SchoolTest {
                 && resString.contains("48");
         assertThat(list.size(), is(3));
         assertThat(result, is(true));
+    }
+
+    @Test
+    public void whenGetMapOfStudents() {
+        School school = new School();
+        var list = school.toMap(students);
+        assertThat(list.get("test3").getScore(), is(35));
     }
 }
