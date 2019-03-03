@@ -1,9 +1,8 @@
-package ru.job4j.streamAPI;
+package ru.job4j.streamapi;
 
 import org.junit.Test;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

@@ -1,4 +1,4 @@
-package ru.job4j.streamAPI;
+package ru.job4j.streamapi;
 
 import java.util.Comparator;
 import java.util.List;
