@@ -2,11 +2,12 @@ package ru.job4j.streamapi;
 
 /**
  * Student with score field.
- * @author shaplov
+ * @author shaplovd
  * @since 03.03.2019
  */
 public class Student {
 
+    //this 1 3
     private String surname;
     private int score;
 
@@ -15,11 +16,11 @@ public class Student {
         this.score = score;
     }
 
-    public int getScore() {
-        return score;
-    }
-
     public String getSurname() {
         return surname;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

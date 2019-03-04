@@ -10,6 +10,15 @@ public class Logic3T {
         this.table = table;
     }
 
+    /**
+     * checks if there is a winner
+     * @param predicate predicate
+     * @param startX start x pos
+     * @param startY start y pos
+     * @param deltaX delta x
+     * @param deltaY delta y
+     * @return result
+     */
     public boolean fillBy(Predicate<Figure3T> predicate, int startX, int startY, int deltaX, int deltaY) {
         boolean result = true;
         for (int index = 0; index != this.table.length; index++) {

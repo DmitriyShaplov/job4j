@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * Test School
+ */
 public class SchoolTest {
 
     private final List<Student> students = List.of(
@@ -65,6 +68,7 @@ public class SchoolTest {
         assertThat(list.size(), is(3));
         assertThat(result, is(true));
     }
+
 
     @Test
     public void whenGetMapOfStudents() {
