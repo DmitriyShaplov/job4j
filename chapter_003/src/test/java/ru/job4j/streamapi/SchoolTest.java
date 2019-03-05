@@ -2,6 +2,7 @@ package ru.job4j.streamapi;
 
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
