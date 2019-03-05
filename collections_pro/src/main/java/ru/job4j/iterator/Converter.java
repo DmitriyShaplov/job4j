@@ -1,8 +1,6 @@
 package ru.job4j.iterator;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -18,39 +16,44 @@ public class Converter {
      * @return Iterator of Integers
      */
     Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
-        return new Iterator<Integer>() {
-            private List<Iterator<Integer>> iterators = new ArrayList<>();
-            private int index = 0;
-
-            {
-                fillList();
-            }
-
-            private void fillList() {
-                while (it.hasNext()) {
-                    this.iterators.add(it.next());
-                }
-            }
+        return new Iterator<>() {
+            private Iterator<Integer> inner = it.hasNext() ? it.next() : null;
 
             @Override
             public boolean hasNext() {
-                return iterators.size() > index && iterators.get(index).hasNext();
+                if (inner == null) {
+                    return false;
+                }
+                boolean result = false;
+                if (inner.hasNext()) {
+                    result = true;
+                } else {
+                    if (it.hasNext()) {
+                        inner = it.next();
+                        return hasNext();
+                    }
+                }
+                return result;
             }
 
             @Override
             public Integer next() {
-                if (index >= iterators.size()) {
+                if (inner == null) {
                     throw new NoSuchElementException();
                 }
-                if (iterators.get(index).hasNext()) {
-                    var result = iterators.get(index).next();
-                    if (!iterators.get(index).hasNext()) {
-                        index++;
-                    }
-                    return result;
+                if (inner.hasNext()) {
+                    return inner.next();
                 } else {
-                    index++;
-                    return next();
+                    if (it.hasNext()) {
+                        inner = it.next();
+                        if (inner.hasNext()) {
+                            return inner.next();
+                        } else {
+                            return next();
+                        }
+                    } else {
+                        throw new NoSuchElementException();
+                    }
                 }
             }
         };
