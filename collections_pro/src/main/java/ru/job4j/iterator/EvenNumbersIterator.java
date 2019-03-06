@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 public class EvenNumbersIterator implements Iterator {
 
     private final int[] values;
-    private int index = -1;
+    private int index = 0;
 
     public EvenNumbersIterator(final int[] values) {
         this.values = values;
@@ -18,31 +18,21 @@ public class EvenNumbersIterator implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return values.length > nextEvenIndex();
+        for (; index < values.length; index++) {
+            if (values[index] % 2 == 0) {
+                break;
+            }
+        }
+        return values.length > index;
     }
 
     @Override
     public Object next() {
-        index = nextEvenIndex();
-        if (index >= values.length) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return values[index];
-    }
-
-    /**
-     * finds index of next even number
-     * @return index of even number or
-     * index out of array bounds
-     */
-    private int nextEvenIndex() {
-        int i = index + 1;
-        boolean result = false;
-        for (; i < values.length; i++) {
-            if (values[i] % 2 == 0) {
-                break;
-            }
-        }
-        return i;
+        var result = values[index];
+        index++;
+        return result;
     }
 }
