@@ -38,23 +38,10 @@ public class Converter {
 
             @Override
             public Integer next() {
-                if (inner == null) {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                if (inner.hasNext()) {
-                    return inner.next();
-                } else {
-                    if (it.hasNext()) {
-                        inner = it.next();
-                        if (inner.hasNext()) {
-                            return inner.next();
-                        } else {
-                            return next();
-                        }
-                    } else {
-                        throw new NoSuchElementException();
-                    }
-                }
+                return inner.next();
             }
         };
     }
