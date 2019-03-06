@@ -28,9 +28,11 @@ public class Converter {
                 if (inner.hasNext()) {
                     result = true;
                 } else {
-                    if (it.hasNext()) {
+                    while (!inner.hasNext() && it.hasNext()) {
                         inner = it.next();
-                        return hasNext();
+                        if (inner.hasNext()) {
+                            result = true;
+                        }
                     }
                 }
                 return result;
