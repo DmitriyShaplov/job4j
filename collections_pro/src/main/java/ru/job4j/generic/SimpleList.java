@@ -41,6 +41,17 @@ public class SimpleList<T> implements Iterable<T> {
         this.objects[index] = model;
     }
 
+    public void remove(int index) {
+        if (index > this.index) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        final int newSize;
+        if ((newSize = this.index - 1) > index) {
+            System.arraycopy(this.objects, index + 1, this.objects, index, newSize - index);
+        }
+        this.objects[this.index = newSize] = null;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<>() {

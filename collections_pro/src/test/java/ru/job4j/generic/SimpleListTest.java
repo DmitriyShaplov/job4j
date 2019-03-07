@@ -67,4 +67,18 @@ public class SimpleListTest {
         Iterator it = list.iterator();
         it.next();
     }
+
+    @Test
+    public void whenRemoveElementThenListWOElement() {
+        SimpleList<String> list = new SimpleList<>(5);
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.remove(1);
+        StringBuilder sb = new StringBuilder();
+        for (String s : list) {
+            sb.append(s);
+        }
+        assertThat(sb.toString(), is("13"));
+    }
 }
