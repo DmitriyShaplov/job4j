@@ -45,11 +45,12 @@ public class SimpleList<T> implements Iterable<T> {
         if (index > this.index) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        final int newSize;
-        if ((newSize = this.index - 1) > index) {
+        final int newSize = this.index - 1;
+        if (newSize > index) {
             System.arraycopy(this.objects, index + 1, this.objects, index, newSize - index);
         }
-        this.objects[this.index = newSize] = null;
+        this.index = newSize;
+        this.objects[this.index] = null;
     }
 
     @Override
