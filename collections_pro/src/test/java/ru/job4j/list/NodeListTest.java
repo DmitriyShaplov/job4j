@@ -9,10 +9,10 @@ public class NodeListTest {
 
     @Test
     public void whenAddNodesWithCycleThenTrue() {
-        NodeList.Node first = new NodeList.Node<>();
-        NodeList.Node two = new NodeList.Node<>();
-        NodeList.Node third = new NodeList.Node<>();
-        NodeList.Node four = new NodeList.Node<>();
+        NodeList.Node first = new NodeList.Node<>(1);
+        NodeList.Node two = new NodeList.Node<>(2);
+        NodeList.Node third = new NodeList.Node<>(3);
+        NodeList.Node four = new NodeList.Node<>(4);
         first.next = two;
         two.next = third;
         third.next = four;
@@ -23,10 +23,10 @@ public class NodeListTest {
 
     @Test
     public void whenAddNodesWithCycleInMiddleThenTrue() {
-        NodeList.Node first = new NodeList.Node<>();
-        NodeList.Node two = new NodeList.Node<>();
-        NodeList.Node third = new NodeList.Node<>();
-        NodeList.Node four = new NodeList.Node<>();
+        NodeList.Node first = new NodeList.Node<>(1);
+        NodeList.Node two = new NodeList.Node<>(2);
+        NodeList.Node third = new NodeList.Node<>(3);
+        NodeList.Node four = new NodeList.Node<>(4);
         first.next = two;
         two.next = third;
         third.next = two;
@@ -37,10 +37,10 @@ public class NodeListTest {
 
     @Test
     public void whenAddNodesNoCycleThenFalse() {
-        NodeList.Node first = new NodeList.Node<>();
-        NodeList.Node two = new NodeList.Node<>();
-        NodeList.Node third = new NodeList.Node<>();
-        NodeList.Node four = new NodeList.Node<>();
+        NodeList.Node first = new NodeList.Node<>(1);
+        NodeList.Node two = new NodeList.Node<>(2);
+        NodeList.Node third = new NodeList.Node<>(3);
+        NodeList.Node four = new NodeList.Node<>(4);
         first.next = two;
         two.next = third;
         third.next = two;

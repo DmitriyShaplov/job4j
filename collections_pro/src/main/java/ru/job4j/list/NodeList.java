@@ -9,15 +9,20 @@ public class NodeList {
     public static class Node<T> {
         T value;
         Node<T> next;
+
+        public Node(T value) {
+            this.value = value;
+        }
     }
 
     public boolean hasCycle(Node first) {
         boolean result = false;
         Node curNode = first;
-        while(curNode.next != null) {
-            curNode.value = true;
+        Node faster = first;
+        while (faster != null && faster.next != null) {
             curNode = curNode.next;
-            if (curNode.value != null && curNode.value.equals(true)) {
+            faster = faster.next.next;
+            if (faster == curNode) {
                 result = true;
                 break;
             }
