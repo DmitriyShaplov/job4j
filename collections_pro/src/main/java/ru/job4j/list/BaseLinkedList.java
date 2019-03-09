@@ -34,10 +34,20 @@ public class BaseLinkedList<E> implements Iterable<E> {
     }
 
     /**
+     * Get size
+     */
+    public int size() {
+        return this.size;
+    }
+
+    /**
      * Get element by index.
      */
     @SuppressWarnings("unchecked")
     public E get(int index) {
+        if (index >= this.size) {
+            throw new IndexOutOfBoundsException();
+        }
         Node<E> curNode = this.first;
         for (int i = 0; i < index; i++) {
             curNode = curNode.next;

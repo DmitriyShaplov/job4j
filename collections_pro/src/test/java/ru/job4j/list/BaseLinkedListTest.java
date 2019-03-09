@@ -3,6 +3,8 @@ package ru.job4j.list;
 import org.junit.Test;
 
 import java.util.ConcurrentModificationException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -51,5 +53,12 @@ public class BaseLinkedListTest {
             sb.append(it.next());
         }
         assertThat(sb.toString(), is("123"));
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void whenAddOneElementThenGetSecondResultIOOBException() {
+        BaseLinkedList<Integer> list = new BaseLinkedList<>();
+        list.add(1);
+        list.get(2);
     }
 }
