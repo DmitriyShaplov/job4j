@@ -3,6 +3,7 @@ package ru.job4j.list;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Simple container for dynamic array.
@@ -73,6 +74,9 @@ public class SimpleArrayList<E> implements Iterable<E> {
             public boolean hasNext() {
                 if (this.expectedModCount != SimpleArrayList.this.modCount) {
                     throw new ConcurrentModificationException();
+                }
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
                 }
                 return SimpleArrayList.this.size > this.position;
             }
