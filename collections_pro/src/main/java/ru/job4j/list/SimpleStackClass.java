@@ -6,7 +6,7 @@ public class SimpleStackClass<E> extends BaseLinkedList<E> implements SimpleStac
      * @return last pushed element.
      */
     @Override
-    public E poll() {
+    public E pull() {
         E result = getFirst();
         deleteFirst();
         return result;

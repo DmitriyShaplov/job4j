@@ -9,7 +9,7 @@ public interface SimpleStack<E> {
     /**
      * @return last pushed element.
      */
-    E poll();
+    E pull();
 
     /**
      * push element to stack.
