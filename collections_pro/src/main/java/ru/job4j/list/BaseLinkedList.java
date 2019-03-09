@@ -34,6 +34,26 @@ public class BaseLinkedList<E> implements Iterable<E> {
     }
 
     /**
+     * delete first element
+     */
+    protected void deleteFirst() {
+        this.first = this.first.next;
+    }
+
+    /**
+     * get first element
+     */
+    protected E getFirst() {
+        return this.first.data;
+    }
+
+    protected void linkFirst(E value) {
+        Node<E> newNode = new Node<>(value);
+        newNode.next = this.first;
+        this.first = newNode;
+    }
+
+    /**
      * Get size
      */
     public int size() {
@@ -43,7 +63,6 @@ public class BaseLinkedList<E> implements Iterable<E> {
     /**
      * Get element by index.
      */
-    @SuppressWarnings("unchecked")
     public E get(int index) {
         if (index >= this.size) {
             throw new IndexOutOfBoundsException();
