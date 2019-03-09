@@ -1,6 +1,6 @@
 package ru.job4j.list;
 
-public class SimpleStackClass<E> extends BaseLinkedList<E> implements SimpleStack<E>{
+public class SimpleStackClass<E> extends BaseLinkedList<E> implements SimpleStack<E> {
 
     /**
      * @return last pushed element.

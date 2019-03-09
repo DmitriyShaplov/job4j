@@ -75,9 +75,6 @@ public class SimpleArrayList<E> implements Iterable<E> {
                 if (this.expectedModCount != SimpleArrayList.this.modCount) {
                     throw new ConcurrentModificationException();
                 }
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
                 return SimpleArrayList.this.size > this.position;
             }
 
@@ -86,6 +83,9 @@ public class SimpleArrayList<E> implements Iterable<E> {
             public E next() {
                 if (this.expectedModCount != SimpleArrayList.this.modCount) {
                     throw new ConcurrentModificationException();
+                }
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
                 }
                 return (E) SimpleArrayList.this.elementData[this.position++];
             }
