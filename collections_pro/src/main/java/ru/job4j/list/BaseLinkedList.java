@@ -37,6 +37,9 @@ public class BaseLinkedList<E> implements Iterable<E> {
      * delete first element
      */
     protected E deleteFirst() {
+        if (this.first == null) {
+            throw new NoSuchElementException();
+        }
         E result = this.first.data;
         this.first = this.first.next;
         return result;
