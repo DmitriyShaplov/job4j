@@ -1,15 +1,19 @@
 package ru.job4j.list;
 
-public class SimpleStackClass<E> extends BaseLinkedList<E> implements SimpleStack<E> {
+public class SimpleStackClass<E> implements SimpleStack<E> {
+
+    private BaseLinkedList<E> linkList;
+
+    public SimpleStackClass() {
+        this.linkList = new BaseLinkedList<>();
+    }
 
     /**
      * @return last pushed element.
      */
     @Override
     public E pull() {
-        E result = getFirst();
-        deleteFirst();
-        return result;
+        return this.linkList.deleteFirst();
     }
 
     /**
@@ -17,6 +21,6 @@ public class SimpleStackClass<E> extends BaseLinkedList<E> implements SimpleStac
      */
     @Override
     public void push(E value) {
-        linkFirst(value);
+        this.linkList.linkFirst(value);
     }
 }

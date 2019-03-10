@@ -36,8 +36,10 @@ public class BaseLinkedList<E> implements Iterable<E> {
     /**
      * delete first element
      */
-    protected void deleteFirst() {
+    protected E deleteFirst() {
+        E result = this.first.data;
         this.first = this.first.next;
+        return result;
     }
 
     /**
