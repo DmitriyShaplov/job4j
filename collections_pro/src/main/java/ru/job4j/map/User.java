@@ -31,12 +31,12 @@ public class User {
         return birthday;
     }
 
-    @Override
-    public int hashCode() {
-        int result = 1;
-        result = 31 * result + (this.name == null ? 0 : this.name.hashCode());
-        result = 31 * result + Integer.valueOf(this.children).hashCode();
-        result = 31 * result + (this.birthday == null ? 0 : this.birthday.hashCode());
-        return result;
-    }
+//    @Override
+//    public int hashCode() {
+//        int result = 1;
+//        result = 31 * result + (this.name == null ? 0 : this.name.hashCode());
+//        result = 31 * result + Integer.valueOf(this.children).hashCode();
+//        result = 31 * result + (this.birthday == null ? 0 : this.birthday.hashCode());
+//        return result;
+//    }
 }
