@@ -2,7 +2,6 @@ package ru.job4j.map;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
@@ -18,7 +17,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Pair<K, V>> {
     private int modCount = 0;
     private int capacity = 16;
 
-    private final static double loadFactor = 0.75;
+    private final static double DEFAULT_LOAD_FACTOR = 0.75;
 
     public SimpleHashMap() {
         resize();
@@ -59,7 +58,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Pair<K, V>> {
         }
 
         @Override
-        @SuppressWarnings({"rawtypes","unchecked"})
+        @SuppressWarnings({"rawtypes", "unchecked"})
         public Pair<K, V> next() {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
@@ -123,7 +122,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Pair<K, V>> {
             this.table[index] = new Pair<>(hash, key, value);
             this.modCount++;
             this.size++;
-            if (size >= this.table.length * loadFactor) {
+            if (size >= this.table.length * DEFAULT_LOAD_FACTOR) {
                 resize();
             }
             result = true;
@@ -198,7 +197,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Pair<K, V>> {
         return this.size;
     }
 
-    @SuppressWarnings({"rawtypes","unchecked"})
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void resize() {
         if (this.table == null) {
             this.table = (Pair<K, V>[]) new Pair[this.capacity];
