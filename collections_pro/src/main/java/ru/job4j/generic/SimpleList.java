@@ -53,6 +53,10 @@ public class SimpleList<T> implements Iterable<T> {
         this.objects[this.index] = null;
     }
 
+    public int size() {
+        return this.index;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<>() {
