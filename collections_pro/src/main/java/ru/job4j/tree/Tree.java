@@ -58,13 +58,13 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      * Returns is this Tree is binary.
      */
     public boolean isBinary() {
-        boolean rst = false;
+        boolean rst = true;
         Queue<Node<E>> data = new LinkedList<>();
         data.offer(root);
         while (!data.isEmpty()) {
             Node<E> el = data.poll();
-            if (el.leaves().size() >= 2) {
-                rst = true;
+            if (el.leaves().size() > 2) {
+                rst = false;
                 break;
             }
             for (Node<E> child : el.leaves()) {
