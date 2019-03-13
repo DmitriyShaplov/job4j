@@ -47,6 +47,7 @@ public class TreeTest {
             set.add(it.next());
         }
         var result = set.containsAll(List.of(1, 2, 3, 4, 5, 6));
+        assertThat(set.size(), is(6));
         assertTrue(result);
     }
 
