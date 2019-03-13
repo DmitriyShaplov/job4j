@@ -22,16 +22,33 @@ public class SimpleSet<T> implements Iterable<T> {
      * @return boolean result
      */
     public boolean add(T value) {
-        boolean result = true;
-        var it = simpleList.iterator();
-        while (it.hasNext()) {
-            if (it.next().equals(value)) {
-                result = false;
-                break;
-            }
-        }
-        if (result) {
+        if (!contains(value)) {
             simpleList.add(value);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if this element is in the set.
+     */
+    public boolean contains(Object o) {
+        boolean result = false;
+        var it = simpleList.iterator();
+        if (o == null) {
+            while (it.hasNext()) {
+                if (it.next() == null) {
+                    result = true;
+                    break;
+                }
+            }
+        } else {
+            while (it.hasNext()) {
+                if (o.equals(it.next())) {
+                    result = true;
+                    break;
+                }
+            }
         }
         return result;
     }
