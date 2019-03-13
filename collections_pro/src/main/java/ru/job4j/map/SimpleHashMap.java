@@ -20,12 +20,10 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Pair<K, V>> {
     private final static double DEFAULT_LOAD_FACTOR = 0.75;
 
     public SimpleHashMap() {
-        resize();
     }
 
     public SimpleHashMap(int capacity) {
         this.capacity = capacity;
-        resize();
     }
 
     /**
@@ -115,6 +113,9 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Pair<K, V>> {
      * @return result
      */
     public boolean insert(K key, V value) {
+        if (this.table == null) {
+            resize();
+        }
         boolean result = false;
         int hash = hash(key);
         int index = index(hash);
@@ -202,9 +203,15 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Pair<K, V>> {
         if (this.table == null) {
             this.table = (Pair<K, V>[]) new Pair[this.capacity];
         } else {
+            int oldCap = this.table.length;
             int newCap = this.table.length * 2;
             Pair<K, V>[] newTab = (Pair<K, V>[]) new Pair[newCap];
-            System.arraycopy(table, 0, newTab, 0, this.table.length);
+            for (int i = 0; i < oldCap; ++i) {
+                if (this.table[i] != null) {
+                    Pair<K, V> p = this.table[i];
+                    newTab[p.hash & (newCap - 1)] = p;
+                }
+            }
             this.table = newTab;
         }
     }
