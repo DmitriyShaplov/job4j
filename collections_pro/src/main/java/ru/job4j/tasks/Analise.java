@@ -18,7 +18,7 @@ public class Analise {
      * modified users.
      */
     public Info diff(List<User> previous, List<User> current) {
-        Map<Integer, String> prvUserMap = previous.stream().collect(Collectors.toMap(k -> k.id, v -> v.name));;
+        Map<Integer, String> prvUserMap = previous.stream().collect(Collectors.toMap(k -> k.id, v -> v.name));
         int changed = 0;
         int cnt = 0;
         for (User user : current) {
@@ -27,8 +27,8 @@ public class Analise {
                 if (prvUserMap.get(user.id) == null && user.name == null) {
                     continue;
                 }
-                if ((prvUserMap.get(user.id) == null && user.name != null) ||
-                        !prvUserMap.get(user.id).equals(user.name)) {
+                if ((prvUserMap.get(user.id) == null && user.name != null)
+                       || !prvUserMap.get(user.id).equals(user.name)) {
                     changed++;
                 }
             }
