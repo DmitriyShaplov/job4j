@@ -34,7 +34,6 @@ public class SimpleSet<T> implements Iterable<T> {
      */
     public boolean contains(Object o) {
         boolean result = false;
-        var it = simpleList.iterator();
         for (int i = 0; i < simpleList.size(); i++) {
             if (simpleList.get(i) == o || o != null && o.equals(simpleList.get(i))) {
                 result = true;
