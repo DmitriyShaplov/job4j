@@ -18,32 +18,24 @@ public class Analise {
      * modified users.
      */
     public Info diff(List<User> previous, List<User> current) {
-        Map<Integer, String> prvUserMap = previous.stream().collect(Collectors.toMap(k -> k.id, v -> v.name));
-        Map<Integer, String> curUserMap = current.stream().collect(Collectors.toMap(k -> k.id, v -> v.name));
-        int sameUserNumber = (int) current.stream().filter(v -> prvUserMap.containsKey(v.id)).count();
-        int added = current.size() - sameUserNumber;
-        int deleted = previous.size() - sameUserNumber;
-        int changed = (int) prvUserMap.keySet().stream()
-                .filter(curUserMap::containsKey)
-                .filter(k -> !prvUserMap.get(k).equals(curUserMap.get(k))).count();
+        Map<Integer, String> prvUserMap = previous.stream().collect(Collectors.toMap(k -> k.id, v -> v.name));;
+        int changed = 0;
+        int cnt = 0;
+        for (User user : current) {
+            if (prvUserMap.containsKey(user.id)) {
+                cnt++;
+                if (prvUserMap.get(user.id) == null && user.name == null) {
+                    continue;
+                }
+                if ((prvUserMap.get(user.id) == null && user.name != null) ||
+                        !prvUserMap.get(user.id).equals(user.name)) {
+                    changed++;
+                }
+            }
+        }
+        var added = current.size() - cnt;
+        var deleted = previous.size() - cnt;
         return new Info(added, deleted, changed);
-//        int added = 0;
-//        int deleted = 0;
-//        int changed = 0;
-//        int cnt = 0;
-//        for (User u1 : previous) {
-//            for (User u2 : current) {
-//                if (u1.id == u2.id) {
-//                    cnt++;
-//                    if (!u1.name.equals(u2.name)) {
-//                        changed++;
-//                    }
-//                }
-//            }
-//        }
-//        added = current.size() - cnt;
-//        deleted = previous.size() - cnt;
-//        return new Info(added, deleted, changed);
     }
 
     /**
