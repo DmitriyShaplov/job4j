@@ -20,6 +20,7 @@
         <module>chapter_003</module>
 		<module>tictactoe</module>
         <module>collections_pro</module>
+        <module>input_output</module>
     </modules>
 
     <dependencies>
