@@ -17,24 +17,14 @@ public class Anagram {
         if (s1.length() != s2.length()) {
             return false;
         }
-        Map<Character, Integer> map = new HashMap<>();
-        boolean result = true;
-        for (char c : s1.toCharArray()) {
-            map.put(c, map.containsKey(c) ? map.get(c) + 1 : 1);
+        Map<Character, Integer> map1 = new HashMap<>();
+        Map<Character, Integer> map2 = new HashMap<>();
+        for (int index = 0; index < s1.length(); index++) {
+            char c1 = s1.charAt(index);
+            char c2 = s2.charAt(index);
+            map1.put(c1, map1.containsKey(c1) ? map1.get(c1) + 1 : 1);
+            map2.put(c2, map2.containsKey(c2) ? map2.get(c2) + 1 : 1);
         }
-        for (char c : s2.toCharArray()) {
-            if (map.get(c) == null || map.get(c) == 0) {
-                result = false;
-                break;
-            }
-            map.put(c, map.get(c) - 1);
-        }
-        for (int i : map.values()) {
-            if (i != 0) {
-                result = false;
-                break;
-            }
-        }
-        return result;
+        return map1.equals(map2);
     }
 }
