@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 import static org.junit.Assert.*;
 
@@ -14,20 +15,24 @@ import static org.junit.Assert.*;
 public class InStreamServiceTest {
 
     @Test
-    public void whenInputStreamHasEvenNumberResultTrue() throws IOException {
-        byte[] array = new byte[] {2};
-        ByteArrayInputStream byteStream = new ByteArrayInputStream(array);
-        InStreamService inSer = new InStreamService();
-        boolean result = inSer.isNumber(byteStream);
-        assertTrue(result);
+    public void whenInputStreamHasEvenNumberThenTrue() throws IOException {
+        InStreamService service = new InStreamService();
+        final boolean number = service.isNumber(new ByteArrayInputStream("1234567891234567890".getBytes()));
+        assertTrue(number);
     }
 
     @Test
-    public void whenInputStreamHasOddNumberResultFalse() throws IOException {
-        byte[] array = new byte[] {1};
-        ByteArrayInputStream byteStream = new ByteArrayInputStream(array);
-        InStreamService inSer = new InStreamService();
-        boolean result = inSer.isNumber(byteStream);
-        assertFalse(result);
+    public void whenInputStreamHasOddNumberThenFalse() throws IOException {
+        InStreamService service = new InStreamService();
+        final boolean number = service.isNumber(new ByteArrayInputStream("423456789123456789".getBytes()));
+        assertFalse(number);
     }
+
+    @Test
+    public void whenInputStreamHasNotNumberThenFalse() throws IOException {
+        InStreamService service = new InStreamService();
+        final boolean number = service.isNumber(new ByteArrayInputStream("123мамамылараму7890".getBytes()));
+        assertFalse(number);
+    }
+
 }

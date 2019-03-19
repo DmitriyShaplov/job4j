@@ -11,8 +11,18 @@ import java.io.InputStream;
 public class InStreamService {
 
     public boolean isNumber(InputStream in) throws IOException {
-        try (in) {
-            return in.read() % 2 == 0;
+        try (InputStream inStream = in) {
+            boolean numbers = true;
+            int lastByte = -1;
+            int c;
+            while ((c = inStream.read()) != -1) {
+                if (c < 48 || c > 57) {
+                    numbers = false;
+                    break;
+                }
+                lastByte = c;
+            }
+            return lastByte % 2 == 0 && numbers;
         }
     }
 }
