@@ -19,10 +19,13 @@ public class Anagram {
         }
         Map<Character, Integer> map1 = new HashMap<>();
         Map<Character, Integer> map2 = new HashMap<>();
-        for (int index = 0; index < s1.length(); index++) {
-            char c1 = s1.charAt(index);
-            char c2 = s2.charAt(index);
+        for (char c1 : s1.toCharArray()) {
             map1.put(c1, map1.containsKey(c1) ? map1.get(c1) + 1 : 1);
+        }
+        for (char c2 : s2.toCharArray()) {
+            if (!map1.containsKey(c2)) {
+                return false;
+            }
             map2.put(c2, map2.containsKey(c2) ? map2.get(c2) + 1 : 1);
         }
         return map1.equals(map2);
