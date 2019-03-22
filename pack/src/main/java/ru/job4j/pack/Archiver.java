@@ -2,7 +2,6 @@ package ru.job4j.pack;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -10,6 +9,7 @@ import java.util.zip.ZipOutputStream;
  * Class - archiver.
  * @author shaplov
  * @since 22.03.2019
+ * @version 1.01
  */
 public class Archiver {
 
@@ -55,14 +55,13 @@ public class Archiver {
                     .forEach(p ->
                     {
                         if (!p.toFile().isDirectory()) {
-                            try {
+                            try (InputStream in = new FileInputStream(p.toFile())) {
                                 zout.putNextEntry(new ZipEntry((rootDir.toPath().relativize(p)).toString()));
-                                try (InputStream in = new FileInputStream(p.toFile())) {
-                                    int len;
-                                    while ((len = in.read(buffer)) > 0) {
-                                        zout.write(buffer, 0, len);
-                                    }
+                                int len;
+                                while ((len = in.read(buffer)) > 0) {
+                                    zout.write(buffer, 0, len);
                                 }
+                                zout.closeEntry();
                             } catch (IOException e) {
                                 throw new UncheckedIOException(e);
                             }
