@@ -21,6 +21,7 @@
 		<module>tictactoe</module>
         <module>collections_pro</module>
         <module>input_output</module>
+        <module>pack</module>
     </modules>
 
     <dependencies>
