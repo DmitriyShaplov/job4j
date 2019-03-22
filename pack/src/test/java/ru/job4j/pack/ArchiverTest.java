@@ -31,7 +31,7 @@ public class ArchiverTest {
 
     @Before
     public void makeStructure() throws IOException {
-        root = Files.createDirectory(Paths.get(System.getProperty("java.io.tmpdir") + "testArch"));
+        root = Files.createDirectory(Paths.get(System.getProperty("java.io.tmpdir") + "testArch1"));
         Files.createFile(Paths.get(root + "/test.jpg"));
         Files.createFile(Paths.get(root + "/test.png"));
         Files.createFile(Paths.get(root + "/test.xml"));
@@ -51,7 +51,7 @@ public class ArchiverTest {
 
     @Test
     public void whenCreateArchiveWithoutJpgFilesThenArchiveWithPngAndXml() throws IOException {
-        String testRoot = System.getProperty("java.io.tmpdir") + "testArch";
+        String testRoot = root.toString();
         Archiver archiver = new Archiver(new String[]{"-d", testRoot, "-o", "test.zip", "-e", "jpg"});
         archiver.createPack();
         Set<String> result = new HashSet<>();
