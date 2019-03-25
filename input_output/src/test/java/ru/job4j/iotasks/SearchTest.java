@@ -27,10 +27,6 @@ public class SearchTest {
     @After
     public void deleteTempDir() {
         deleteDir(tempPath.toFile());
-//        Files.walk(tempPath)
-//                .sorted(Comparator.reverseOrder())
-//                .map(Path::toFile)
-//                .forEach(File::delete);
     }
 
     private void deleteDir(File file) {
