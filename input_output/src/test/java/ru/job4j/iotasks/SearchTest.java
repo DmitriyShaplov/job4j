@@ -75,7 +75,7 @@ public class SearchTest {
         Files.createTempFile(
                 dirInner, "testJPG3", ".JpG");
         Search search = new Search();
-        List<File> files = search.files(dir.toString(),
+        List<File> files = search.filteredFiles(dir.toString(),
                 List.of("jpg", "png"));
         boolean result = true;
         for (File file : files) {
@@ -124,7 +124,7 @@ public class SearchTest {
         Files.createTempFile(
                 dirInner, "testJPG3", ".JpG");
         Search search = new Search();
-        List<File> files = search.files(dir.toString(),
+        List<File> files = search.filteredFiles(dir.toString(),
                 List.of("png"));
         boolean result = true;
         for (File file : files) {

@@ -13,7 +13,12 @@ import java.util.Queue;
  */
 public class Search {
 
-    public List<File> files(String parent, List<String> exts) {
+    /**
+     * Searches files in specified directory.
+     * @param parent String directory
+     * @return list of files
+     */
+    public List<File> files(String parent) {
         Queue<File> queue = new LinkedList<>();
         List<File> listFiles = new ArrayList<>();
         File file = new File(parent);
@@ -30,14 +35,23 @@ public class Search {
                 }
             }
         }
-        List<File> result = filter(listFiles, exts);
-        return result;
+        return listFiles;
+    }
+
+    /**
+     * Returns filtered list of files.
+     * @param parent String directory
+     * @param exts List of extensions
+     * @return list of files (filtered)
+     */
+    public List<File> filteredFiles(String parent, List<String> exts) {
+        return filter(files(parent), exts);
     }
 
     /**
      * Filters files in list.
      */
-    private List<File> filter(List<File> list, List<String> exts) {
+    public List<File> filter(List<File> list, List<String> exts) {
         if (exts.isEmpty()) {
             return list;
         }
