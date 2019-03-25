@@ -22,6 +22,7 @@
         <module>collections_pro</module>
         <module>input_output</module>
         <module>pack</module>
+        <module>console_chat</module>
     </modules>
 
     <dependencies>

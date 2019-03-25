@@ -31,7 +31,7 @@ public class ArchiverTest {
 
     @Before
     public void makeStructure() throws IOException {
-        root = Files.createDirectory(Paths.get(System.getProperty("java.io.tmpdir") + "testArch1"));
+        root = Files.createDirectory(Paths.get(System.getProperty("java.io.tmpdir") + "/testArch1"));
         Files.createFile(Paths.get(root + "/test.jpg"));
         Files.createFile(Paths.get(root + "/test.png"));
         Files.createFile(Paths.get(root + "/test.xml"));
@@ -55,12 +55,12 @@ public class ArchiverTest {
         Archiver archiver = new Archiver(new String[]{"-d", testRoot, "-o", "test.zip", "-e", "jpg"});
         archiver.createPack();
         Set<String> result = new HashSet<>();
-        ZipFile zipFile = new ZipFile(System.getProperty("java.io.tmpdir") + "test.zip");
+        ZipFile zipFile = new ZipFile(System.getProperty("java.io.tmpdir") + "/test.zip");
         var entries = zipFile.entries();
         while (entries.hasMoreElements()) {
             result.add(entries.nextElement().getName());
         }
-        File file = new File(System.getProperty("java.io.tmpdir") + "test.zip");
+        File file = new File(System.getProperty("java.io.tmpdir") + "/test.zip");
         file.delete();
         Set<String> expect = Set.of("test.png", "test.xml", "testDir\\test1.png", "testDir\\test1.xml");
         assertThat(result, is(expect));
