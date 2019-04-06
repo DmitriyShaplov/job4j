@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * @since 24.12.2018
  * @version 1.00
  */
-public class Tracker {
+public class Tracker implements ITracker {
     private final List<Item> items = new ArrayList<>();
     private static final Random RN = new Random();
 

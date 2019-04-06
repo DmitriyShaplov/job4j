@@ -21,6 +21,12 @@ public class Item {
         this.created = System.currentTimeMillis();
     }
 
+    public Item(String name, String desc, long created) {
+        this.name = name;
+        this.desc = desc;
+        this.created = created;
+    }
+
     public String getId() {
         return this.id;
     }
@@ -47,5 +53,29 @@ public class Item {
 
     public long getCreated() {
         return this.created;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Item item = (Item) o;
+        return created == item.created
+                && comCnt == item.comCnt
+                && Objects.equals(id, item.id)
+                && Objects.equals(name, item.name)
+                && Objects.equals(desc, item.desc)
+                && Arrays.equals(comments, item.comments);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, name, desc, created, comCnt);
+        result = 31 * result + Arrays.hashCode(comments);
+        return result;
     }
 }
