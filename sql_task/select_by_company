@@ -1,0 +1,8 @@
+-- names of all persons that are not in the company with id = 5
+-- and company name for each person.
+select p.name, c.name from person as p inner join company as c on p.company_id = c.id 
+	where company_id != 5;
+-- select the name of the company with the maximum numbers of persons +
+-- number of persons in this company.
+select c.name, count(p.id) from company as c left outer join person as p on p.company_id = c.id
+	group by c.name order by count desc limit 1;
