@@ -19,6 +19,13 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     private static final Logger LOG = LogManager.getLogger(TrackerSQL.class);
     private Connection connection;
 
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+    }
+
+    public TrackerSQL() {
+    }
+
     /**
      * Init connection with database.
      * Creates table items if it is not exists.
@@ -53,7 +60,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         boolean result = false;
         try (Statement statement = this.connection.createStatement()) {
             result = statement.executeUpdate(
-                    "create table if not exists items (id serial primary key, name varchar(200), description text, created timestamp)"
+                    "create table if not exists items (id serial primary key not null, name varchar(200), description text, created timestamp)"
             ) > 0;
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
