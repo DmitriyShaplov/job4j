@@ -13,6 +13,28 @@
        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+	<profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+				<db.url>jdbc:postgresql://127.0.0.1:5432/sqlru</db.url>
+				<db.username>postgres</db.username>
+				<db.password>123456</db.password>
+				<db.driver>org.postgresql.Driver</db.driver>
+			</properties>
+		</profile>
+		<profile>
+			<id>production</id>
+			<properties>
+				<db.url>jdbc:postgresql://127.0.0.1:5432/sqlru</db.url>
+				<db.username>postgres</db.username>
+				<db.password>123456</db.password>
+				<db.driver>org.postgresql.Driver</db.driver>
+			</properties>
+		</profile>
+
+	</profiles>
+
     <modules>
        <module>chapter_001</module>
 		<module>chapter_002</module>
@@ -24,6 +46,7 @@
         <module>pack</module>
         <module>console_chat</module>
 		<module>SQL</module>
+		<module>sql_parser</module>
 	</modules>
 
     <dependencies>
@@ -97,6 +120,22 @@
 	        <version>4.12</version>
 	        <scope>test</scope>
 	    </dependency>
+		<!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.11.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>1.7.25</version>
+		</dependency>
     </dependencies>
 
     <build>
