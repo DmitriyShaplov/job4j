@@ -1,0 +1,77 @@
+create database tracker;
+
+create table role (
+	id serial primary key,
+	name varchar(2000)
+);
+
+create table rules (
+	id serial primary key,
+	name varchar(2000)
+);
+
+create table role_rules (
+	id serial primary key,
+	role_id integer references role(id),
+	rules_it integer references rules(id)
+);
+
+create table users (
+	id serial primary key,
+	login varchar(2000),
+	password varchar(2000),
+	create_date timestamp,
+	role_id integer references role(id)
+);
+
+create table category (
+	id serial primary key,
+	name varchar(2000)
+);
+
+create table state (
+	id serial primary key,
+	name varchar(2000)
+);
+
+create table item (
+	id serial primary key,
+	name varchar(2000),
+	description text,
+	create_date timestamp,
+	user_id integer unique references users(id),
+	category_id integer references category(id),
+	state_id integer references state(id)
+);
+
+create table comments (
+	id serial primary key,
+	comment text,
+	item_id integer references item(id)
+);
+
+create table attachs (
+	id serial primary key,
+	attach text,
+	item_id integer references item(id)
+);
+
+insert into role (name) values ('administators'), ('users');
+insert into rules (name) values 
+	('can do anything'),
+	('can use'),
+	('can edit');
+insert into role_rules (role_id, rules_id) values 
+	(5, 7),
+	(5, 8),
+	(5, 9),
+	(6, 8);
+insert into users (login, password, create_date, role_id) values
+	('admin', 'password', now(), 5),
+	('username', 'pas123', now(), 6);
+insert into category (name) values ('urgent'), ('not urgent');
+insert into state (name) values ('done'), ('in work');
+insert into item (name, description, create_date, user_id, category_id, state_id) values 
+    ('first', 'this is urgent', now(), 2, 1, 2);
+insert into comments (comment, item_id) values ('work started', 1), ('in process', 1);
+insert into attachs (attach, item_id) values ('http:\\random.org', 1), ('something', 1);
