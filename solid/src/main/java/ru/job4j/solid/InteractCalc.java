@@ -5,6 +5,7 @@ import ru.job4j.calculator.Calculator;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -61,6 +62,7 @@ public class InteractCalc {
         do {
             key = in.next().toUpperCase();
             if (this.actions.containsKey(key)) {
+                this.emptyResult = false;
                 this.actions.get(key).accept(result);
                 isKey = true;
             } else {
@@ -76,25 +78,21 @@ public class InteractCalc {
         this.actions.put("+", result -> {
                     this.calc.add(result, getNextDouble());
                     output.println(this.calc.getResult());
-                    this.emptyResult = false;
                 }
         );
         this.actions.put("-", result -> {
                     this.calc.subtract(result, getNextDouble());
                     output.println(this.calc.getResult());
-                    this.emptyResult = false;
                 }
         );
         this.actions.put("*", result -> {
                     this.calc.multiple(result, getNextDouble());
                     output.println(this.calc.getResult());
-                    this.emptyResult = false;
                 }
         );
         this.actions.put("/", result -> {
                     this.calc.div(result, getNextDouble());
                     output.println(this.calc.getResult());
-                    this.emptyResult = false;
                 }
         );
         this.actions.put("C", result -> {
@@ -106,10 +104,41 @@ public class InteractCalc {
     }
 
     /**
+     * Method for adding new functions
+     * by subclasses.
+     *
+     * Functions with single argument.
+     */
+    protected void addAction(String key, Consumer<Double> consumer) {
+        this.actions.put(key, result -> {
+            consumer.accept(result);
+            output.println(this.calc.getResult());
+        });
+    }
+
+    /**
+     * Method for adding new functions
+     * by subclasses.
+     *
+     * Functions with double argument.
+     */
+    protected void addAction(String key, BiConsumer<Double, Double> consumer) {
+        this.actions.put(key, result -> {
+            consumer.accept(result, getNextDouble());
+            output.println(this.calc.getResult());
+        });
+    }
+
+    /**
      * Shows help text.
      */
     public void showHelp() {
-        String help = String.join(System.lineSeparator(),
+        String help = buildMenu();
+        output.println(help);
+    }
+
+    protected String buildMenu() {
+        return String.join(System.lineSeparator(),
                 "-----------------------------",
                 "This is interactive calculator.",
                 "Enter the number and chose",
@@ -120,15 +149,14 @@ public class InteractCalc {
                 "After calculations enter \"C\" to clear the result",
                 "or \"Q\" to exit",
                 "-----------------------------"
-                );
-        output.println(help);
+        );
     }
 
     /**
      * Gets double value in loop.
      * @return double value.
      */
-    private double getNextDouble() {
+    protected double getNextDouble() {
         boolean valid = false;
         double result = 0.0;
         do {
@@ -141,16 +169,5 @@ public class InteractCalc {
             }
         } while (!valid);
         return result;
-    }
-
-    /**
-     * Start program.
-     */
-    public static void main(String[] args) {
-        InteractCalc calc = new InteractCalc(
-                new Calculator(), System.out, System.in
-        );
-        calc.showHelp();
-        calc.init();
     }
 }
