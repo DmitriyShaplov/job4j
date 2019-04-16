@@ -25,7 +25,8 @@
         <module>console_chat</module>
 		<module>SQL</module>
         <module>StoreSQL</module>
-    </modules>
+		<module>solid</module>
+	</modules>
 
 	<profiles>
         <profile>
