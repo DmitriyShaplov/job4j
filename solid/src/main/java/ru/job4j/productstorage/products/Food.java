@@ -30,6 +30,9 @@ public abstract class Food {
         this.price = price;
     }
 
+    public Food() {
+    }
+
     /**
      * Sets discount on this product.
      * @param discount discount in percentage between 0 and 100.
