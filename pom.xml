@@ -26,6 +26,7 @@
 		<module>SQL</module>
         <module>StoreSQL</module>
 		<module>sql_parser</module>
+		<module>solid</module>
 	</modules>
 
 	<profiles>
