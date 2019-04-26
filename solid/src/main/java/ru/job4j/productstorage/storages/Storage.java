@@ -25,6 +25,15 @@ public abstract class Storage {
         return Collections.unmodifiableList(this.products);
     }
 
+    /**
+     * Clear product list.
+     */
+    public List<Food> pickUpAll() {
+        List<Food> list = new ArrayList<>(this.products);
+        this.products.clear();
+        return list;
+    }
+
     @Override
     public int hashCode() {
         return this.getClass().hashCode();
