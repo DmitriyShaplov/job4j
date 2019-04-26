@@ -67,7 +67,7 @@ public class MenuUI {
      */
     public void start() {
         String scanned = scanner.nextLine();
-        while ( !"exit".equals(scanned)) {
+        while (!"exit".equals(scanned)) {
             if ("show menu".equals(scanned)) {
                 control.showMenu();
             } else if (scanned.matches("^(\\d?\\d\\.)+")) {

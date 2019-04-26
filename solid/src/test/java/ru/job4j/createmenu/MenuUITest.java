@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  */
 public class MenuUITest {
 
-    private final String LN = System.lineSeparator();
+    private static final String LN = System.lineSeparator();
 
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
     private final Consumer<String> output = new Consumer<>() {
