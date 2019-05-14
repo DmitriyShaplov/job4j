@@ -20,7 +20,7 @@ public class RectangleMove implements Runnable {
     public void run() {
         double deltaX = 1.0;
         double deltaY = 1.5;
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             if (this.rect.getX() <= 0
             || this.rect.getX() >= this.scene.getWidth() - this.rect.getWidth()) {
                 deltaX *= -1;
@@ -34,7 +34,7 @@ public class RectangleMove implements Runnable {
             try {
                 Thread.sleep(30);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }
