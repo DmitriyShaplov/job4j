@@ -41,6 +41,13 @@ public class SimpleBlockingQueue<T> {
     }
 
     /**
+     * Default constructor with 10 threshold.
+     */
+    public SimpleBlockingQueue() {
+        this.threshold = 10;
+    }
+
+    /**
      * Offers value in queue
      * or waiting for poll.
      * @param value T value.
