@@ -36,5 +36,6 @@ public class ParallelSearch {
         producer.start();
         producer.join();
         consumer.interrupt();
+        consumer.join();
     }
 }

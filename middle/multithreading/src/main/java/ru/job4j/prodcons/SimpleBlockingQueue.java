@@ -20,16 +20,19 @@ public class SimpleBlockingQueue<T> {
     /**
      * Maximum capacity.
      */
+    @GuardedBy("this")
     private final int threshold;
 
     /**
      * Flag for empty state.
      */
+    @GuardedBy("this")
     private boolean empty = true;
 
     /**
      * Flag for overflowing state.
      */
+    @GuardedBy("this")
     private boolean overflow = false;
 
     /**
@@ -79,5 +82,9 @@ public class SimpleBlockingQueue<T> {
         overflow = false;
         this.notify();
         return queue.poll();
+    }
+
+    public synchronized boolean isEmpty() {
+        return this.queue.isEmpty();
     }
 }

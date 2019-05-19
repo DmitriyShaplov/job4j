@@ -5,8 +5,8 @@ import org.junit.Test;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author shaplov
@@ -35,9 +35,9 @@ public class SimpleBlockingQueueTest {
 
     private static class ConsumerThread extends Thread {
         private final SimpleBlockingQueue<Integer> queue;
-        private final List<Integer> list;
+        private final CopyOnWriteArrayList<Integer> list;
 
-        private ConsumerThread(final SimpleBlockingQueue<Integer> queue, final List<Integer> list) {
+        private ConsumerThread(final SimpleBlockingQueue<Integer> queue, final CopyOnWriteArrayList<Integer> list) {
             this.queue = queue;
             this.list = list;
         }
@@ -58,7 +58,7 @@ public class SimpleBlockingQueueTest {
     public void whenCreateQueueWith3ThresholdThenRunProducerAndConsumerResultListContains0to9Numbers()
             throws InterruptedException {
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(3);
-        List<Integer> list = new LinkedList<>();
+        CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
         Thread consumer = new ConsumerThread(queue, list);
         Thread producer = new ProducerThread(queue);
         consumer.start();
