@@ -81,7 +81,11 @@ public class SimpleBlockingQueue<T> {
         }
         overflow = false;
         this.notify();
-        return queue.poll();
+        var result = queue.poll();
+        if (queue.isEmpty()) {
+            empty = true;
+        }
+        return result;
     }
 
     public synchronized boolean isEmpty() {
