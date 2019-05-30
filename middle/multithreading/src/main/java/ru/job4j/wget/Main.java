@@ -13,7 +13,8 @@ public class Main {
             return;
         }
         WGet wget = new WGet();
-        Thread counter = new Thread( () -> {
+        Thread counter = new Thread(
+                () -> {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
                     Thread.sleep(1000);
