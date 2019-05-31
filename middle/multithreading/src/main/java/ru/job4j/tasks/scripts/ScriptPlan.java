@@ -1,6 +1,5 @@
 package ru.job4j.tasks.scripts;
 
-import java.nio.Buffer;
 import java.util.*;
 
 /**
@@ -29,7 +28,8 @@ public class ScriptPlan {
         Map<Integer, VulnerabilityScript> map = new HashMap<>();
         list.forEach(v -> map.put(v.getScriptId(), v));
         LinkedHashSet<VulnerabilityScript> result = new LinkedHashSet<>();
-        list.forEach( v -> {
+        list.forEach(
+                v -> {
             Queue<VulnerabilityScript> data = new LinkedList<>();
             Deque<VulnerabilityScript> buffer = new LinkedList<>();
             data.offer(v);

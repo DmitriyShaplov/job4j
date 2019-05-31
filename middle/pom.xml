@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>multithreading</module>
+        <module>webchapter</module>
     </modules>
 
 
