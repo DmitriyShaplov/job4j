@@ -1,18 +1,20 @@
 package ru.job4j.servlets;
 
+import java.util.List;
+
 /**
  * @author shaplov
  * @since 04.06.2019
  */
 public interface Validate {
 
-    String add(User user);
+    boolean add(User user);
 
-    String update(User user);
+    boolean update(User user);
 
-    String delete(User user);
+    boolean delete(User user);
 
-    String findAll();
+    List<User> findAll();
 
-    String findById(User user);
+    User findById(User user);
 }

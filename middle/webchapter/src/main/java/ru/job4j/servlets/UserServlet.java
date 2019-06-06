@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -24,9 +25,27 @@ public class UserServlet extends HttpServlet {
     private final Map<String, Function<User, String>> actions = new HashMap<>();
 
     {
-        actions.put("add", logic::add);
-        actions.put("update", logic::update);
-        actions.put("delete", logic::delete);
+        actions.put("add", user -> {
+            if (logic.add(user)) {
+                return "user added";
+            } else {
+                return "something wrong";
+            }
+        });
+        actions.put("update", user -> {
+            if (logic.update(user)) {
+                return "user updated";
+            } else {
+                return "something wrong";
+            }
+        });
+        actions.put("delete", user -> {
+            if (logic.delete(user)) {
+                return "user deleted";
+            } else {
+                return "something wrong";
+            }
+        });
     }
 
     @Override
@@ -35,9 +54,9 @@ public class UserServlet extends HttpServlet {
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         String id = req.getParameter("id");
         if (id == null) {
-            writer.append(logic.findAll());
+            writer.append(logic.findAll().toString());
         } else {
-            writer.append(logic.findById(constructUser(req)));
+            writer.append(logic.findById(constructUser(req)).toString());
         }
         writer.flush();
     }

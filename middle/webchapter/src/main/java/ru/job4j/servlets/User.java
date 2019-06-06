@@ -24,6 +24,16 @@ public class User {
         this.email = email;
     }
 
+    public User(String name, String login, String email) {
+        this.name = name;
+        this.login = login;
+        this.email = email;
+    }
+
+    public User(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

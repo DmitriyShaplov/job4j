@@ -1,5 +1,7 @@
 package ru.job4j.servlets;
 
+import java.util.List;
+
 /**
  * Request processing logic.
  *
@@ -25,45 +27,48 @@ public class ValidateService implements Validate {
         return INSTANCE;
     }
 
-    private String validateUser(User user) {
-        String res = "ok";
+    private boolean validateUser(User user) {
+        var res = true;
         if (user.getLogin() == null) {
-            res = "You should specify login.";
+            res = false;
         } else if (!user.getEmail().matches("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$")) {
-            res = "Incorrect email.";
+            res = false;
         }
         return res;
     }
 
     @Override
-    public String add(User user) {
-        String res = validateUser(user);
-        return "ok".equals(res) ? String.format("User added. Id = %s.", logic.add(user)) : res;
+    public boolean add(User user) {
+        boolean result = false;
+        if (validateUser(user)) {
+            logic.add(user);
+            result = true;
+        }
+        return result;
     }
 
     @Override
-    public String update(User user) {
-        String res = validateUser(user);
-        return "ok".equals(res) ? (logic.update(user)
-                ? String.format("User id=%s updated successfully.", user.getId())
-                : "There is no user with specified id") : res;
+    public boolean update(User user) {
+        boolean result = false;
+        if (validateUser(user)) {
+            logic.update(user);
+            result = true;
+        }
+        return result;
     }
 
     @Override
-    public String delete(User user) {
-        return logic.delete(user)
-                ? String.format("User id=%s deleted successfully.", user.getId())
-                : "There is no user with specified id";
+    public boolean delete(User user) {
+        return logic.delete(user);
     }
 
     @Override
-    public String findAll() {
-        return logic.findAll().toString();
+    public List<User> findAll() {
+        return logic.findAll();
     }
 
     @Override
-    public String findById(User user) {
-        User res = logic.findById(user);
-        return res != null ? res.toString() : "There is no user with specified id";
+    public User findById(User user) {
+        return logic.findById(user);
     }
 }
