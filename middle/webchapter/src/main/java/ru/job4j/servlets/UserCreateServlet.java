@@ -50,6 +50,6 @@ public class UserCreateServlet extends HttpServlet {
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         logic.add(new User(name, login, email));
-        doGet(req, resp);
+        resp.sendRedirect(String.format("%s/create.jsp", req.getContextPath()));
     }
 }

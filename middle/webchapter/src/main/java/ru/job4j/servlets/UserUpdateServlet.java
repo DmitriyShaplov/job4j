@@ -23,7 +23,6 @@ public class UserUpdateServlet extends HttpServlet {
         String id = req.getParameter("id");
         User user = logic.findById(new User(id));
         resp.setContentType("text/html");
-        StringBuilder sb = new StringBuilder();
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         writer.append("<!DOCTYPE html>"
                 + "<html lang=\"en\">"
@@ -54,7 +53,7 @@ public class UserUpdateServlet extends HttpServlet {
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         logic.update(new User(id, name, login, email));
-        doGet(req, resp);
+        resp.sendRedirect(String.format("%s/edit.jsp?id=%s", req.getContextPath(), id));
     }
 }
 

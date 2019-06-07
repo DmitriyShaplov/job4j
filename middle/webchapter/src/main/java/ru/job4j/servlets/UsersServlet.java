@@ -61,6 +61,6 @@ public class UsersServlet extends HttpServlet {
         if (!id.isEmpty()) {
             logic.delete(new User(id));
         }
-        this.doGet(req, resp);
+        resp.sendRedirect(String.format("%s/list.jsp", req.getContextPath()));
     }
 }
