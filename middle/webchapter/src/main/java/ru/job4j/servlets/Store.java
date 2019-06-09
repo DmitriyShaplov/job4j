@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface Store {
 
-    String add(User user);
+    User add(User user);
 
     boolean update(User user);
 

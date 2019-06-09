@@ -4,6 +4,9 @@
     <title>Create user</title>
 </head>
 <body>
+    <% if ("repeat".equals(request.getParameter("error"))) { %>
+    <span style="color: red; ">Error, such login is already exists!</span><br>
+    <% } %>
     <form action="<%=request.getContextPath()%>/create" method="post">
         Name : <input type="text" name="name"><br>
         Login : <input type="text" name="login"><br>

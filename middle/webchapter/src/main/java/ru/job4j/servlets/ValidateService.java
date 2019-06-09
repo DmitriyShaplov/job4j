@@ -15,7 +15,7 @@ public class ValidateService implements Validate {
     /**
      * Store instance.
      */
-    private final Store logic = MemoryStore.getInstance();
+    private final Store logic = DbStore.getInstance();
 
     /**
      * Private Constructor.

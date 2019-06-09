@@ -6,8 +6,12 @@
     <title>Edit user</title>
 </head>
 <body>
+    <% if ("repeat".equals(request.getParameter("error"))) { %>
+    <span style="color: red; ">Error, such login is already exists!</span><br>
+    <% } %>
     <form action="<%=request.getContextPath()%>/edit" method="post">
         <% User user = ValidateService.getInstance().findById(new User(request.getParameter("id"))); %>
+        Id : <%=user.getId()%><br>
         Name : <input type="test" name="name" value="<%=user.getName()%>"><br>
         Login : <input type="test" name="login" value="<%=user.getLogin()%>"><br>
         Email : <input type="test" name="email" value="<%=user.getEmail()%>"><br>

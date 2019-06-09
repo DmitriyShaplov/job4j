@@ -44,11 +44,11 @@ public class MemoryStore implements Store {
      * @return new Id.
      */
     @Override
-    public String add(User user) {
+    public User add(User user) {
         user.setId(String.valueOf(idCounter.incrementAndGet()));
         user.setCreateDate(LocalDate.now());
         users.put(user.getId(), user);
-        return String.valueOf(user.getId());
+        return user;
     }
 
     /**

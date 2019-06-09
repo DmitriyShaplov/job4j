@@ -1,5 +1,7 @@
 package ru.job4j.servlets;
 
+import ru.job4j.servlets.exceptions.RepeatedLoginException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,10 +48,16 @@ public class UserCreateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String name = req.getParameter("name");
         String login = req.getParameter("login");
         String email = req.getParameter("email");
-        logic.add(new User(name, login, email));
+        try {
+            logic.add(new User(name, login, email));
+        } catch (RepeatedLoginException e) {
+            resp.sendRedirect(String.format("%s/create.jsp?error=repeat", req.getContextPath()));
+            return;
+        }
         resp.sendRedirect(String.format("%s/create.jsp", req.getContextPath()));
     }
 }
