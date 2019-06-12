@@ -1,8 +1,5 @@
 package ru.job4j.servlets;
 
-import ru.job4j.servlets.exceptions.InvalidPassword;
-import ru.job4j.servlets.exceptions.RepeatedLoginException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +9,9 @@ import java.io.IOException;
 
 /**
  * @author shaplov
- * @since 06.06.2019
+ * @since 11.06.2019
  */
-public class UserCreateServlet extends HttpServlet {
+public class SigninController extends HttpServlet {
 
     /**
      * Validate instance.
@@ -27,30 +24,18 @@ public class UserCreateServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.setCharacterEncoding("UTF-8");
-        String name = req.getParameter("name");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
-        String email = req.getParameter("email");
         String password = req.getParameter("password");
-        try {
-            logic.add(new User(null, name, login, email, password, Role.USER));
-        } catch (RepeatedLoginException e) {
-            req.setAttribute("error", "Such login is already exists");
-            doGet(req, resp);
-            return;
-        } catch (InvalidPassword e) {
-            req.setAttribute("error", "Invalid password");
-            doGet(req, resp);
-            return;
-        }
         if (logic.isCredential(login, password)) {
             HttpSession session = req.getSession();
             session.setAttribute("login", login);
-            session.setAttribute("id", logic.findByLogin(new User("", login)).getId());
-            session.setAttribute("role", Role.USER);
+            User user = logic.findByLogin(new User("", login));
+            session.setAttribute("id", user.getId());
+            session.setAttribute("role", user.getRole());
             resp.sendRedirect(String.format("%s/", req.getContextPath()));
         } else {
+            req.setAttribute("invalid", "Credential invalid");
             doGet(req, resp);
         }
     }

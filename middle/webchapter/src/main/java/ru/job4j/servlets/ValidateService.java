@@ -1,5 +1,7 @@
 package ru.job4j.servlets;
 
+import ru.job4j.servlets.exceptions.InvalidPassword;
+
 import java.util.List;
 
 /**
@@ -33,6 +35,8 @@ public class ValidateService implements Validate {
             res = false;
         } else if (!user.getEmail().matches("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$")) {
             res = false;
+        } else if (!user.getPassword().matches("^\\w{3,20}")) {
+            throw new InvalidPassword("Invalid password");
         }
         return res;
     }
@@ -58,6 +62,11 @@ public class ValidateService implements Validate {
     }
 
     @Override
+    public boolean updateRole(User user) {
+        return logic.updateRole(user);
+    }
+
+    @Override
     public boolean delete(User user) {
         return logic.delete(user);
     }
@@ -70,5 +79,15 @@ public class ValidateService implements Validate {
     @Override
     public User findById(User user) {
         return logic.findById(user);
+    }
+
+    @Override
+    public User findByLogin(User user) {
+        return logic.findByLogin(user);
+    }
+
+    @Override
+    public boolean isCredential(String login, String password) {
+        return logic.isCredential(login, password);
     }
 }

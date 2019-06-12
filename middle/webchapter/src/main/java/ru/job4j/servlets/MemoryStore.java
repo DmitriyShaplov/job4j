@@ -90,4 +90,37 @@ public class MemoryStore implements Store {
     public User findById(User user) {
         return users.get(user.getId());
     }
+
+    @Override
+    public User findByLogin(User user) {
+        for (User u : findAll()) {
+            if (u.getLogin().equals(user.getLogin())) {
+                return u;
+            }
+        }
+        throw new IllegalStateException("There is no user with such login");
+    }
+
+    @Override
+    public boolean isCredential(String login, String password) {
+        boolean result = false;
+        for (User u : findAll()) {
+            if (login.equals(u.getLogin()) && password.equals(u.getPassword())) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean updateRole(User user) {
+        boolean result = false;
+        User user1 = users.get(user.getId());
+        if (user1 != null) {
+            user1.setRole(user.getRole());
+            result = true;
+        }
+        return result;
+    }
 }

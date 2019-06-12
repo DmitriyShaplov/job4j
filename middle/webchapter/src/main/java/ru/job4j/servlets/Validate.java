@@ -12,9 +12,15 @@ public interface Validate {
 
     boolean update(User user);
 
+    boolean updateRole(User user);
+
     boolean delete(User user);
 
     List<User> findAll();
 
     User findById(User user);
+
+    User findByLogin(User user);
+
+    boolean isCredential(String login, String password);
 }

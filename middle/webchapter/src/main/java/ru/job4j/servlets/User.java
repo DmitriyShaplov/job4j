@@ -16,30 +16,48 @@ public class User {
     private String login;
     private String email;
     private LocalDate createDate;
+    private String password;
+    private Role role;
 
-    public User(String id, String name, String login, String email, LocalDate createDate) {
+    public User(String id, String name, String login, String email, LocalDate createDate, String password, Role role) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.email = email;
         this.createDate = createDate;
-    }
-
-    public User(String id, String name, String login, String email) {
-        this.id = id;
-        this.name = name;
-        this.login = login;
-        this.email = email;
-    }
-
-    public User(String name, String login, String email) {
-        this.name = name;
-        this.login = login;
-        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
     public User(String id) {
         this.id = id;
+    }
+
+    public User(String id, String login) {
+        this.id = id;
+        this.login = login;
+    }
+
+    public User(String id, Role role) {
+        this.id = id;
+        this.role = role;
+    }
+
+    public User(String id, String name, String login, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.login = login;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String id, String name, String login, String email, String password, Role role) {
+        this.id = id;
+        this.name = name;
+        this.login = login;
+        this.email = email;
+        this.role = role;
+        this.password = password;
     }
 
     public String getId() {
@@ -62,6 +80,18 @@ public class User {
         return createDate;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public int getPriority() {
+        return this.role.getPriority();
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -80,6 +110,10 @@ public class User {
 
     public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -111,4 +145,5 @@ public class User {
                 + ", createDate=" + createDate
                 + '}';
     }
+
 }

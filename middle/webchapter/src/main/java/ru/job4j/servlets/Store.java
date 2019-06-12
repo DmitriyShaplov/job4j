@@ -17,4 +17,10 @@ public interface Store {
     List<User> findAll();
 
     User findById(User user);
+
+    User findByLogin(User user);
+
+    boolean isCredential(String login, String password);
+
+    boolean updateRole(User user);
 }

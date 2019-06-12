@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -80,6 +79,8 @@ public class UserServlet extends HttpServlet {
         String name = req.getParameter("name");
         String login = req.getParameter("login");
         String email = req.getParameter("email");
-        return new User(id, name, login, email);
+        String password = req.getParameter("password");
+        Role role = Role.valueOf(req.getParameter("role"));
+        return new User(id, name, login, email, password, role);
     }
 }

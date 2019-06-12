@@ -41,13 +41,15 @@ public class DbStore implements Store {
     public User add(User user) {
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement st = connection.prepareStatement(
-                     "insert into users(login, name, email, created) values(?, ?, ?, now())",
+                     "insert into users(login, name, email, created, password, role) values(?, ?, ?, now(), ?, ?)",
                      Statement.RETURN_GENERATED_KEYS
              )
         ) {
             st.setString(1, user.getLogin());
             st.setString(2, user.getName());
             st.setString(3, user.getEmail());
+            st.setString(4, user.getPassword());
+            st.setString(5, user.getRole().toString());
             st.executeUpdate();
             try (ResultSet rs = st.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -57,7 +59,7 @@ public class DbStore implements Store {
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-            if (e.getMessage().contains("уже существует")) {
+            if ("23505".equals(e.getSQLState())) {
                 throw new RepeatedLoginException("Such login already exists");
             }
         }
@@ -69,17 +71,18 @@ public class DbStore implements Store {
         boolean result = false;
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement st = connection.prepareStatement(
-                     "update users set login=?, name=?, email=? where id=?"
+                     "update users set login=?, name=?, email=?, password=? where id=?"
              )
         ) {
             st.setString(1, user.getLogin());
             st.setString(2, user.getName());
             st.setString(3, user.getEmail());
-            st.setInt(4, Integer.parseInt(user.getId()));
+            st.setString(4, user.getPassword());
+            st.setInt(5, Integer.parseInt(user.getId()));
             result = st.executeUpdate() > 0;
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-            if (e.getMessage().contains("уже существует")) {
+            if ("23505".equals(e.getSQLState())) {
                 throw new RepeatedLoginException("Such login already exists");
             }
         } catch (NumberFormatException ex) {
@@ -115,8 +118,10 @@ public class DbStore implements Store {
                     String name = rs.getString("name");
                     String login = rs.getString("login");
                     String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    Role role = Role.valueOf(rs.getString("role"));
                     LocalDate date = rs.getTimestamp("created").toLocalDateTime().toLocalDate();
-                    result.add(new User(id, name, login, email, date));
+                    result.add(new User(id, name, login, email, date, password, role));
                 }
             }
         } catch (SQLException e) {
@@ -138,12 +143,71 @@ public class DbStore implements Store {
                     String login = rs.getString("login");
                     String email = rs.getString("email");
                     LocalDate date = rs.getTimestamp("created").toLocalDateTime().toLocalDate();
-                    return new User(id, name, login, email, date);
+                    String password = rs.getString("password");
+                    Role role = Role.valueOf(rs.getString("role"));
+                    return new User(id, name, login, email, date, password, role);
                 }
             }
         } catch (SQLException | NumberFormatException e) {
             LOG.error(e.getMessage(), e);
         }
         throw new IllegalStateException("There is no user with such id");
+    }
+
+    @Override
+    public User findByLogin(User user) {
+        try (Connection connection = SOURCE.getConnection();
+             PreparedStatement st = connection.prepareStatement("select * from users where login=?")
+        ) {
+            st.setString(1, user.getLogin());
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    String id = String.valueOf(rs.getInt("id"));
+                    String name = rs.getString("name");
+                    String login = rs.getString("login");
+                    String email = rs.getString("email");
+                    LocalDate date = rs.getTimestamp("created").toLocalDateTime().toLocalDate();
+                    String password = rs.getString("password");
+                    Role role = Role.valueOf(rs.getString("role"));
+                    return new User(id, name, login, email, date, password, role);
+                }
+            }
+        } catch (SQLException | NumberFormatException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        throw new IllegalStateException("There is no user with such login");
+    }
+
+    @Override
+    public boolean updateRole(User user) {
+        boolean result = false;
+        try (Connection connection = SOURCE.getConnection();
+             PreparedStatement st = connection.prepareStatement("update users set role=? where id=?")
+        ) {
+            st.setString(1, user.getRole().toString());
+            st.setInt(2, Integer.parseInt(user.getId()));
+            result = st.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean isCredential(String login, String password) {
+        boolean result = false;
+        try (Connection connection = SOURCE.getConnection();
+             PreparedStatement st = connection.prepareStatement("select * from users where login=? and password=?")
+        ) {
+            st.setString(1, login);
+            st.setString(2, password);
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    result = true;
+                }
+            }
+        } catch (SQLException | NumberFormatException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return result;
     }
 }

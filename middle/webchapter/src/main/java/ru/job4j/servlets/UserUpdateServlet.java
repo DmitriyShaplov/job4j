@@ -1,6 +1,7 @@
 package ru.job4j.servlets;
 
 import ru.job4j.servlets.exceptions.RepeatedLoginException;
+import ru.job4j.servlets.exceptions.InvalidPassword;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,19 +28,21 @@ public class UserUpdateServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.setCharacterEncoding("UTF-8");
         String id = req.getParameter("id");
         String name = req.getParameter("name");
         String login = req.getParameter("login");
         String email = req.getParameter("email");
-        req.setAttribute("error", false);
+        String password = req.getParameter("password");
         try {
-            logic.update(new User(id, name, login, email));
+            logic.update(new User(id, name, login, email, password));
         } catch (RepeatedLoginException e) {
-            req.setAttribute("error", true);
+            req.setAttribute("error", "Such login is already exists");
+        } catch (InvalidPassword e) {
+            req.setAttribute("error", "Invalid password");
         }
-        resp.sendRedirect(String.format("%s/edit?id=%s", req.getContextPath(), id));
+        doGet(req, resp);
     }
 }
 
