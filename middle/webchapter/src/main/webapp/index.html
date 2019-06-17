@@ -8,6 +8,21 @@
     <link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            var result = true;
+            if (document.querySelector('input[name="options"]:checked') == null) {
+                result = false;
+            }
+            if ($('#name').val() === '' || $('#surname').val() === '' || $('#description').val() === '') {
+                result = false;
+            }
+            if (!result) {
+                alert("Please enter name, surname, sex and description");
+            }
+            return result;
+        }
+    </script>
     <style>
         body {
             background-color: beige;
@@ -30,7 +45,7 @@
     <h1>My First Bootstrap Page</h1>
     <p>This is some text.</p>
 </div>
-<form class="main" action="" method="post">
+<form class="main" action="" method="post" name="check">
     <div class="form-group">
         <label for="name">Name:</label>
         <input type="text" class="form-control" id="name">
@@ -43,15 +58,15 @@
     <br>
     <div class="btn-group" data-toggle="buttons" id="sex">
         <button class="btn btn-default">
-            <input type="radio" name="options">Male</button>
+            <input type="radio" name="options" value="Male">Male</button>
         <button class="btn btn-default">
-            <input type="radio" name="options">Female</button>
+            <input type="radio" name="options" value="Female">Female</button>
     </div>
     <div class="form-group" style="padding-top: 15px">
         <label for="description">Description:</label>
         <textarea class="form-control" rows="5" id="description"></textarea>
     </div>
-    <button type="submit" class="btn btn-default" style="float: right">Submit</button>
+    <button style="float: right" type="submit" class="btn btn-default" onclick="return validate()">Submit</button>
     <table class="table">
         <thead>
         <tr>

@@ -22,7 +22,7 @@
         <input type="submit">
     </form>
     <br>
-    <form action="${pageContext.servletContext.contextPath}/">
+    <form action="${pageContext.servletContext.contextPath}/list">
         <input type="submit" value="User's list">
     </form>
 </body>

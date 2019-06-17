@@ -49,7 +49,7 @@ public class UserCreateServlet extends HttpServlet {
             session.setAttribute("login", login);
             session.setAttribute("id", logic.findByLogin(new User("", login)).getId());
             session.setAttribute("role", Role.USER);
-            resp.sendRedirect(String.format("%s/", req.getContextPath()));
+            resp.sendRedirect(String.format("%s/list", req.getContextPath()));
         } else {
             doGet(req, resp);
         }

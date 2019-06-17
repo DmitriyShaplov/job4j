@@ -40,6 +40,6 @@ public class UsersServlet extends HttpServlet {
                 session.invalidate();
             }
         }
-        resp.sendRedirect(String.format("%s/", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/list", req.getContextPath()));
     }
 }

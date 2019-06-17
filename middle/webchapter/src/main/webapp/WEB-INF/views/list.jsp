@@ -36,7 +36,7 @@
                         <input type="hidden" name="id" value="${user.id}">
                         <input type="submit" value="edit">
                     </form></td>
-                    <td><form action="${pageContext.servletContext.contextPath}/" method="post">
+                    <td><form action="${pageContext.servletContext.contextPath}/list" method="post">
                         <input type="hidden" name="id" value="${user.id}">
                         <input type="submit" value="delete">
                     </form></td>

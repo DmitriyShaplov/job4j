@@ -33,7 +33,7 @@ public class SigninController extends HttpServlet {
             User user = logic.findByLogin(new User("", login));
             session.setAttribute("id", user.getId());
             session.setAttribute("role", user.getRole());
-            resp.sendRedirect(String.format("%s/", req.getContextPath()));
+            resp.sendRedirect(String.format("%s/list", req.getContextPath()));
         } else {
             req.setAttribute("invalid", "Credential invalid");
             doGet(req, resp);
