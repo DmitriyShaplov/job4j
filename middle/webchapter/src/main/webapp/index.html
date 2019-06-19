@@ -9,6 +9,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
+        function loadUsers() {
+            $.ajax("./ajax").done(function(users) {
+                var result = "";
+                for (var i = 0; i < users.length; ++i) {
+                    result += '<tr>\n' +
+                        '            <td>' + users[i].name + '</td>\n' +
+                        '            <td>' + users[i].surname + '</td>\n' +
+                        '            <td>' + users[i].sex + '</td>\n' +
+                        '            <td>' + users[i].description + '</td>\n' +
+                        '        </tr>'
+                }
+                document.getElementById("tbody").innerHTML = result;
+            })
+        }
+
+        $(loadUsers());
+
         function validate() {
             var result = true;
             if ($('input[name="options"]:checked').val() == null) {
@@ -23,19 +40,44 @@
             return result;
         }
 
-        function addRow() {
+        function createUser() {
             if (validate()) {
                 var name = $('#name').val();
                 var surname = $('#surname').val();
                 var sex = $('input[name="options"]:checked').val();
                 var description = $('#description').val();
-                $('#tbody').append('<tr>\n' +
-                    '            <td>' + name + '</td>\n' +
-                    '            <td>' + surname + '</td>\n' +
-                    '            <td>' + sex + '</td>\n' +
-                    '            <td>' + description + '</td>\n' +
-                    '        </tr>');
+                $.ajax("./ajax", {
+                    type: "post",
+                    data: JSON.stringify({
+                        name: name,
+                        surname: surname,
+                        sex: sex,
+                        description: description
+                    }),
+                    success: addRow(),
+                    dataType: "json"
+                });
             }
+        }
+
+        function addRowValid() {
+            if (validate()) {
+                addRow();
+            }
+        }
+
+        function addRow() {
+            var name = $('#name').val();
+            var surname = $('#surname').val();
+            var sex = $('input[name="options"]:checked').val();
+            var description = $('#description').val();
+            $('#tbody').append('<tr>\n' +
+                '            <td>' + name + '</td>\n' +
+                '            <td>' + surname + '</td>\n' +
+                '            <td>' + sex + '</td>\n' +
+                '            <td>' + description + '</td>\n' +
+                '        </tr>');
+
         }
     </script>
     <style>
@@ -51,6 +93,9 @@
         .main {
             margin-left: 20px;
             margin-right: 20px;
+        }
+        .center {
+            text-align: center;
         }
     </style>
 </head>
@@ -80,8 +125,11 @@
         <label for="description">Description:</label>
         <textarea class="form-control" rows="5" id="description"></textarea>
     </div>
-    <button style="float: left" type="button" class="btn btn-default" onclick="addRow()">Add row</button>
-    <button style="float: right" type="submit" class="btn btn-default" onclick="return validate()">Submit</button>
+    <div class="center">
+        <button style="float: left" type="button" class="btn btn-default" onclick="addRowValid()">Add row</button>
+        <button type="button" class="btn btn-default" onclick="createUser()">Create User</button>
+        <button style="float: right" type="submit" class="btn btn-default" onclick="return validate()">Submit</button>
+    </div>
     <table class="table" id="table">
         <thead>
         <tr>

@@ -93,4 +93,13 @@
         <servlet-name>Role</servlet-name>
         <url-pattern>/role</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AjaxServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.AjaxServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxServlet</servlet-name>
+        <url-pattern>/ajax</url-pattern>
+    </servlet-mapping>
 </web-app>
