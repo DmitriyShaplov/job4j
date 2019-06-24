@@ -32,6 +32,6 @@ public class RoleController extends HttpServlet {
         String roleStr = req.getParameter("role");
         Role role = Role.valueOf(roleStr);
         logic.updateRole(new User(id, role));
-        resp.sendRedirect(String.format("%s/", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/list", req.getContextPath()));
     }
 }

@@ -14,19 +14,20 @@ public class EditFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         String id = req.getParameter("id");
         if ("".equals(id)) {
-            resp.sendRedirect(String.format("%s/", req.getContextPath()));
+            resp.sendRedirect(String.format("%s/list", req.getContextPath()));
             return;
         }
         Role role = (Role) session.getAttribute("role");
         String curId = (String) session.getAttribute("id");
         User user = ValidateService.getInstance().findById(new User(id));
         if (role.getPriority() <= user.getPriority() && !curId.equals(user.getId())) {
-            resp.sendRedirect(String.format("%s/", req.getContextPath()));
+            resp.sendRedirect(String.format("%s/list", req.getContextPath()));
             return;
         }
         chain.doFilter(request, response);

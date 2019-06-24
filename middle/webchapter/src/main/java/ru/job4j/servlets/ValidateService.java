@@ -31,7 +31,7 @@ public class ValidateService implements Validate {
 
     private boolean validateUser(User user) {
         var res = true;
-        if (user.getLogin() == null) {
+        if (user.getLogin() == null || "".equals(user.getLogin())) {
             res = false;
         } else if (!user.getEmail().matches("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$")) {
             res = false;

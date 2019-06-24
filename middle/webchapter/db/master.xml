@@ -8,4 +8,8 @@
     <include file="scripts/update_001.sql" relativeToChangelogFile="true"/>
     <include file="scripts/update_002.sql" relativeToChangelogFile="true"/>
     <include file="scripts/update_003.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/update_004.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/geo_create.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/geo_update_countries_001.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/geo_update_cities_001.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

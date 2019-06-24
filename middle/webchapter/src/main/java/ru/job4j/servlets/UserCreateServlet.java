@@ -33,8 +33,13 @@ public class UserCreateServlet extends HttpServlet {
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String country = req.getParameter("country");
+        String city = req.getParameter("city");
         try {
-            logic.add(new User(null, name, login, email, password, Role.USER));
+            User user = new User(null, name, login, email, password, Role.USER);
+            user.setCountry(country);
+            user.setCity(city);
+            logic.add(user);
         } catch (RepeatedLoginException e) {
             req.setAttribute("error", "Such login is already exists");
             doGet(req, resp);

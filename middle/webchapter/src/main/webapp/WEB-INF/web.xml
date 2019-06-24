@@ -102,4 +102,22 @@
         <servlet-name>AjaxServlet</servlet-name>
         <url-pattern>/ajax</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CountriesController</servlet-name>
+        <servlet-class>ru.job4j.servlets.CountriesController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CountriesController</servlet-name>
+        <url-pattern>/countries</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CitiesController</servlet-name>
+        <servlet-class>ru.job4j.servlets.CitiesController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CitiesController</servlet-name>
+        <url-pattern>/cities</url-pattern>
+    </servlet-mapping>
 </web-app>

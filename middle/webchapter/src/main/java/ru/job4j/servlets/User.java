@@ -1,6 +1,8 @@
 package ru.job4j.servlets;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -18,6 +20,8 @@ public class User {
     private LocalDate createDate;
     private String password;
     private Role role;
+    private String country;
+    private String city;
 
     public User(String id, String name, String login, String email, LocalDate createDate, String password, Role role) {
         this.id = id;
@@ -76,8 +80,16 @@ public class User {
         return email;
     }
 
-    public LocalDate getCreateDate() {
-        return createDate;
+    public String getCreateDate() {
+        return createDate.format(DateTimeFormatter.ofPattern("yyyy MMMM dd").withLocale(Locale.US));
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public String getPassword() {
@@ -114,6 +126,18 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override

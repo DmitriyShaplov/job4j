@@ -18,14 +18,15 @@ public class AuthFilter implements Filter {
         HttpSession session = req.getSession();
         if (session.getAttribute("login") == null) {
             if (req.getRequestURI().contains("/signin") || req.getRequestURI().contains("/create")
-                    || req.getRequestURI().contains("/index") || req.getRequestURI().contains("/ajax")) {
+                    || req.getRequestURI().contains("/index") || req.getRequestURI().contains("/ajax")
+            || req.getRequestURI().contains("/countries") || req.getRequestURI().contains("/cities")) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 ((HttpServletResponse) servletResponse).sendRedirect(String.format("%s/signin", req.getContextPath()));
             }
         } else {
             if (req.getRequestURI().contains("/signin") || req.getRequestURI().contains("/create")) {
-                ((HttpServletResponse) servletResponse).sendRedirect(String.format("%s/", req.getContextPath()));
+                ((HttpServletResponse) servletResponse).sendRedirect(String.format("%s/list", req.getContextPath()));
             } else {
                 filterChain.doFilter(servletRequest, servletResponse);
             }

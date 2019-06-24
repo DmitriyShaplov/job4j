@@ -41,7 +41,7 @@ public class DbStore implements Store {
     public User add(User user) {
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement st = connection.prepareStatement(
-                     "insert into users(login, name, email, created, password, role) values(?, ?, ?, now(), ?, ?)",
+                     "insert into users(login, name, email, created, password, role, country, city) values(?, ?, ?, now(), ?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS
              )
         ) {
@@ -50,6 +50,8 @@ public class DbStore implements Store {
             st.setString(3, user.getEmail());
             st.setString(4, user.getPassword());
             st.setString(5, user.getRole().toString());
+            st.setString(6, user.getCountry());
+            st.setString(7, user.getCity());
             st.executeUpdate();
             try (ResultSet rs = st.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -71,14 +73,16 @@ public class DbStore implements Store {
         boolean result = false;
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement st = connection.prepareStatement(
-                     "update users set login=?, name=?, email=?, password=? where id=?"
+                     "update users set login=?, name=?, email=?, password=?, country=?, city=? where id=?"
              )
         ) {
             st.setString(1, user.getLogin());
             st.setString(2, user.getName());
             st.setString(3, user.getEmail());
             st.setString(4, user.getPassword());
-            st.setInt(5, Integer.parseInt(user.getId()));
+            st.setString(5, user.getCountry());
+            st.setString(6, user.getCity());
+            st.setInt(7, Integer.parseInt(user.getId()));
             result = st.executeUpdate() > 0;
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
@@ -121,7 +125,12 @@ public class DbStore implements Store {
                     String password = rs.getString("password");
                     Role role = Role.valueOf(rs.getString("role"));
                     LocalDate date = rs.getTimestamp("created").toLocalDateTime().toLocalDate();
-                    result.add(new User(id, name, login, email, date, password, role));
+                    String country = rs.getString("country");
+                    String city = rs.getString("city");
+                    User user = new User(id, name, login, email, date, password, role);
+                    user.setCountry(country);
+                    user.setCity(city);
+                    result.add(user);
                 }
             }
         } catch (SQLException e) {
@@ -145,7 +154,12 @@ public class DbStore implements Store {
                     LocalDate date = rs.getTimestamp("created").toLocalDateTime().toLocalDate();
                     String password = rs.getString("password");
                     Role role = Role.valueOf(rs.getString("role"));
-                    return new User(id, name, login, email, date, password, role);
+                    String country = rs.getString("country");
+                    String city = rs.getString("city");
+                    User result = new User(id, name, login, email, date, password, role);
+                    result.setCountry(country);
+                    result.setCity(city);
+                    return result;
                 }
             }
         } catch (SQLException | NumberFormatException e) {
@@ -169,7 +183,12 @@ public class DbStore implements Store {
                     LocalDate date = rs.getTimestamp("created").toLocalDateTime().toLocalDate();
                     String password = rs.getString("password");
                     Role role = Role.valueOf(rs.getString("role"));
-                    return new User(id, name, login, email, date, password, role);
+                    String country = rs.getString("country");
+                    String city = rs.getString("city");
+                    User result = new User(id, name, login, email, date, password, role);
+                    result.setCountry(country);
+                    result.setCity(city);
+                    return result;
                 }
             }
         } catch (SQLException | NumberFormatException e) {

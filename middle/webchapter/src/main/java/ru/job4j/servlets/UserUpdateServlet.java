@@ -35,8 +35,14 @@ public class UserUpdateServlet extends HttpServlet {
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String country = req.getParameter("country");
+        String city = req.getParameter("city");
         try {
-            logic.update(new User(id, name, login, email, password));
+            User user = new User(id, name, login, email, password);
+            user.setCountry(country);
+            user.setCity(city);
+            logic.update(user);
+            req.setAttribute("success", "User data updated successfully");
         } catch (RepeatedLoginException e) {
             req.setAttribute("error", "Such login is already exists");
         } catch (InvalidPassword e) {
