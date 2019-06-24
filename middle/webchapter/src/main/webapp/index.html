@@ -54,8 +54,14 @@
                         sex: sex,
                         description: description
                     }),
-                    success: addRow(),
                     dataType: "json"
+                }).done(function (user) {
+                    $("#tbody").append('<tr>\n' +
+                        '            <td>' + user.name + '</td>\n' +
+                        '            <td>' + user.surname + '</td>\n' +
+                        '            <td>' + user.sex + '</td>\n' +
+                        '            <td>' + user.description + '</td>\n' +
+                        '        </tr>')
                 });
             }
         }

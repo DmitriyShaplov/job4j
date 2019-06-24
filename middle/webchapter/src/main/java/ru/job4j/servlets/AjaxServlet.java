@@ -39,6 +39,7 @@ public class AjaxServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/json");
         BufferedReader reader = req.getReader();
         StringBuilder sb = new StringBuilder();
         String line;
@@ -48,6 +49,10 @@ public class AjaxServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         UserModel model = mapper.readValue(sb.toString(), UserModel.class);
         users.put(index.getAndIncrement(), model);
+        PrintWriter pw = resp.getWriter();
+        String jsonString = mapper.writeValueAsString(model);
+        pw.append(jsonString);
+        pw.flush();
     }
 
     /**
