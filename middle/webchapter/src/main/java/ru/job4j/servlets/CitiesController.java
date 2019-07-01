@@ -1,5 +1,7 @@
 package ru.job4j.servlets;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,16 +27,8 @@ public class CitiesController extends HttpServlet {
         resp.setContentType("text/json");
         String country = req.getParameter("country");
         PrintWriter pw = resp.getWriter();
-        List<String> cities = db.getCities(country);
-        StringBuilder sb = new StringBuilder("[");
-        for (String city : cities) {
-            sb.append("{\"title\":\"");
-            sb.append(city);
-            sb.append("\"}, ");
-        }
-        sb.delete(sb.length() - 2, sb.length());
-        sb.append("]");
-        pw.append(sb.toString());
+        ObjectMapper objectMapper = new ObjectMapper();
+        pw.append(objectMapper.writeValueAsString(objectMapper.valueToTree(db.getCities(country))));
         pw.flush();
     }
 }

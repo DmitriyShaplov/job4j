@@ -1,5 +1,10 @@
 package ru.job4j.servlets;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,16 +28,9 @@ public class CountriesController extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/json");
         PrintWriter pw = resp.getWriter();
-        List<String> countries = db.getCountries();
-        StringBuilder sb = new StringBuilder("[");
-        for (String country : countries) {
-            sb.append("{\"title\":\"");
-            sb.append(country);
-            sb.append("\"}, ");
-        }
-        sb.delete(sb.length() - 2, sb.length());
-        sb.append("]");
-        pw.append(sb.toString());
+        ObjectMapper objectMapper = new ObjectMapper();
+        ArrayNode array = objectMapper.valueToTree(db.getCountries());
+        pw.append(objectMapper.writeValueAsString(array));
         pw.flush();
     }
 }

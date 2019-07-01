@@ -53,7 +53,7 @@
                 var result = "";
                 result += "<option selected disabled>--- Choose city ---</option>";
                 for (var i = 0; i < cities.length; ++i) {
-                    result += "<option>" + cities[i].title + "</option>";
+                    result += "<option>" + cities[i] + "</option>";
                 }
                 document.getElementById("select-city").innerHTML = result;
             });
@@ -64,7 +64,7 @@
                 var result = "";
                 result += "<option selected disabled>--- Choose country ---</option>";
                 for (var i = 0; i < countries.length; ++i) {
-                    result += "<option>" + countries[i].title + "</option>";
+                    result += "<option>" + countries[i] + "</option>";
                 }
                 document.getElementById("select-country").innerHTML = result;
             });
@@ -77,6 +77,13 @@
         }
         .top {
             margin-top: 10px;
+        }
+
+        .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover  {
+                     background-color: #669999;
+                 }
+        .nav-pills > li > a {
+            color: #669999;
         }
     </style>
 </head>
