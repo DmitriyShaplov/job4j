@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <form action="UploadDownloadFileServlet" method="post" enctype="multipart/form-data">
+        <div id="div1">
+            <div class="form-group">
+                <label for="upload">Select File to Upload:</label>
+                <input type="file" name="fileName" class="form-control-file" id="upload">
+            </div>
+        </div>
+        <button type="button" class="btn btn-success" onclick="uploadFile()">Ajax upload</button>
+        <button type="submit" class="btn btn-default" onclick="return validate()">Submit upload</button>
+    </form>
+</div>
+</body>
+<script>
+    function validate() {
+        var res = true;
+        if ($("#upload")[0].files.length === 0) {
+            alert("Please attach file");
+            res = false;
+        }
+        return res;
+    }
+
+    function uploadFile() {
+        if (!validate()) {
+            return;
+        }
+        var data = new FormData();
+        var file = $("#upload")[0].files[0];
+        data.append("file1", file);
+        $.ajax({
+            url: "AjaxUploadFileServlet",
+            data: data,
+            processData: false,
+            contentType: false,
+            method: "post",
+            success: function(data) {
+                var resHtml = "<a href='UploadDownloadFileServlet?fileName=" + data.fileName +"'>" +
+                    "Download " + data.fileName + "</a>";
+                $("#div1").html(resHtml);
+                if (data.image !== null) {
+                    $("#div1").append("<img src='images/" + data.image + "'>");
+                    $("#div1").append("<img src='data:image/jpeg;base64, " + data.image64 + "'>");
+                }
+            }
+        });
+    }
+</script>
+</html>
