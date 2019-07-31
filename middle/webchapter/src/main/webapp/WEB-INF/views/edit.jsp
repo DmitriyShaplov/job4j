@@ -28,7 +28,7 @@
                 var result = "";
                 result += "<option selected disabled>--- Choose country ---</option>";
                 for (var i = 0; i < countries.length; ++i) {
-                    result += "<option>" + countries[i].title + "</option>";
+                    result += "<option>" + countries[i] + "</option>";
                 }
                 document.getElementById("country").innerHTML = result;
                 if ("${user.country}" !== "") {
@@ -51,7 +51,7 @@
                 var result = "";
                 result += "<option selected disabled>--- Choose city ---</option>";
                 for (var i = 0; i < cities.length; ++i) {
-                    result += "<option>" + cities[i].title + "</option>";
+                    result += "<option>" + cities[i] + "</option>";
                 }
                 document.getElementById("city").innerHTML = result;
                 var city = $('#city');
