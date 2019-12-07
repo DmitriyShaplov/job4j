@@ -29,7 +29,8 @@
 		<module>solid</module>
 		<module>console_tic_tac_toe</module>
 		<module>middle</module>
-	</modules>
+        <module>algorithms</module>
+    </modules>
 
 	<profiles>
         <profile>

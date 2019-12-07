@@ -78,4 +78,16 @@ public class Item {
         result = 31 * result + Arrays.hashCode(comments);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", created=" + created +
+                ", comments=" + Arrays.toString(comments) +
+                ", comCnt=" + comCnt +
+                '}';
+    }
 }
