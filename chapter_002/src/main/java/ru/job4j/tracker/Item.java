@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * This class for request Objects.
+ *
  * @author shaplov
  * @since 23.12.2018
  */

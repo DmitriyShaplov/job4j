@@ -1,4 +1,4 @@
-package ru.shaplov.job4j.observer.lotto;
+package ru.shaplov.job4j.patterns.observer.lotto;
 
 /**
  * @author shaplov

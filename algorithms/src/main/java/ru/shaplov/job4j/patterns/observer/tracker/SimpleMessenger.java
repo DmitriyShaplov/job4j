@@ -1,4 +1,4 @@
-package ru.shaplov.job4j.observer.tracker;
+package ru.shaplov.job4j.patterns.observer.tracker;
 
 import ru.job4j.tracker.Item;
 
