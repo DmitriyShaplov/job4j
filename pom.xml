@@ -30,7 +30,8 @@
 		<module>console_tic_tac_toe</module>
 		<module>middle</module>
         <module>algorithms</module>
-    </modules>
+		<module>waiter</module>
+	</modules>
 
 	<profiles>
         <profile>
@@ -164,11 +165,11 @@
 			<artifactId>javax.annotation-api</artifactId>
 			<version>1.3.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>3.0.3.RELEASE</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework</groupId>-->
+<!--			<artifactId>spring-context</artifactId>-->
+<!--			<version>3.0.3.RELEASE</version>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
