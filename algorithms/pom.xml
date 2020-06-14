@@ -44,6 +44,30 @@
         </dependency>
 
         <dependency>
+            <groupId>javazoom</groupId>
+            <artifactId>jlayer</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.googlecode.soundlibs/tritonus-share -->
+        <dependency>
+            <groupId>com.googlecode.soundlibs</groupId>
+            <artifactId>tritonus-share</artifactId>
+            <version>0.3.7.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.googlecode.soundlibs/mp3spi -->
+        <dependency>
+            <groupId>com.googlecode.soundlibs</groupId>
+            <artifactId>mp3spi</artifactId>
+            <version>1.9.5.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-media -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>11.0.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>ru.job4j</groupId>
             <artifactId>chapter_002</artifactId>
             <version>2.0</version>
