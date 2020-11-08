@@ -27,7 +27,6 @@ public abstract class AbstractOrderFactory implements OrderFactory {
     }
 
     /**
-     * todo
      * просканировать определенный пакет с классами-декораторами.
      * получить список классов.
      * добавить их в additives.
