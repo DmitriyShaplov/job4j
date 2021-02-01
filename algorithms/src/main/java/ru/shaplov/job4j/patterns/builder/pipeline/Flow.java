@@ -1,17 +1,21 @@
-package ru.shaplov.job4j.patterns.builder;
+package ru.shaplov.job4j.patterns.builder.pipeline;
 
 import java.util.*;
 import java.util.function.IntBinaryOperator;
-import java.util.function.Predicate;
+import java.util.function.IntPredicate;
 import java.util.function.Supplier;
 
 /**
  * Примитивный аналог Stream для числовых значений.
  */
 public class Flow {
-    private final List<Integer> values;
 
-    private Flow(List<Integer> values) {
+    private final Collection<Integer> values;
+
+    private Step currentStep;
+
+    private Flow(Collection<Integer> values, Step step) {
+        this.currentStep = step;
         this.values = values;
     }
 
@@ -22,7 +26,7 @@ public class Flow {
      * @return объект Flow
      */
     public static Flow of(Integer... values) {
-        return new Flow(new ArrayList<>(Arrays.asList(values)));
+        return new Flow(new ArrayList<>(Arrays.asList(values)), input -> input);
     }
 
     /**
@@ -31,15 +35,14 @@ public class Flow {
      * @param predicate фильтр
      * @return Flow
      */
-    public Flow filter(Predicate<Integer> predicate) {
-        Objects.requireNonNull(predicate);
-        Iterator<Integer> iterator = values.iterator();
-        while (iterator.hasNext()) {
-            Integer next = iterator.next();
-            if (!predicate.test(next)) {
-                iterator.remove();
-            }
-        }
+    public Flow filter(IntPredicate predicate) {
+        Step nextStep = input -> {
+            Objects.requireNonNull(predicate);
+            input.removeIf(next -> !predicate.test(next));
+            return input;
+        };
+        Step lastStep = currentStep;
+        currentStep = iter -> nextStep.process(lastStep.process(iter));
         return this;
     }
 
@@ -51,7 +54,8 @@ public class Flow {
      */
     public Collection<Integer> collect(Supplier<Collection<Integer>> supplier) {
         Collection<Integer> collection = supplier.get();
-        collection.addAll(values);
+        Collection<Integer> terminatedValues = currentStep.process(this.values);
+        collection.addAll(terminatedValues);
         return collection;
     }
 
@@ -62,14 +66,23 @@ public class Flow {
      * @return результат вычислений
      */
     public Integer reduce(IntBinaryOperator binaryOperator) {
-        Iterator<Integer> iterator = values.iterator();
-        if (!iterator.hasNext()) {
+        Collection<Integer> terminatedValues = currentStep.process(this.values);
+        Iterator<Integer> terminatedIterator = terminatedValues.iterator();
+        if (!terminatedIterator.hasNext()) {
             return 0;
         }
-        Integer left = iterator.next();
-        while (iterator.hasNext()) {
-            left = binaryOperator.applyAsInt(left, iterator.next());
+        Integer left = terminatedIterator.next();
+        while (terminatedIterator.hasNext()) {
+            left = binaryOperator.applyAsInt(left, terminatedIterator.next());
         }
         return left;
+    }
+
+    /**
+     * Шаг процесса.
+     */
+    @FunctionalInterface
+    private static interface Step {
+        Collection<Integer> process(Collection<Integer> input);
     }
 }
